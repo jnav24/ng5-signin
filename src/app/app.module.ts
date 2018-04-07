@@ -15,12 +15,19 @@ import { RouterConfig } from '@app/config/router.config';
 // Components
 import { AppComponent } from '@app/app.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { RegisterComponent } from './register/register.component';
+
+// Guard
+import {SignInAuthGuard} from '@app/auth/sign-in-auth.guard';
 
 
 @NgModule({
     declarations: [
         AppComponent,
         SignInComponent,
+        DashboardComponent,
+        RegisterComponent,
     ],
     imports: [
         BrowserModule,
@@ -37,7 +44,9 @@ import { SignInComponent } from './sign-in/sign-in.component';
         ReactiveFormsModule,
         RouterModule.forRoot(RouterConfig),
     ],
-    providers: [],
+    providers: [
+        SignInAuthGuard,
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
