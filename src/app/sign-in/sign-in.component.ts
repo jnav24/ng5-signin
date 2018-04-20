@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {trigger, state, style, animate, transition} from '@angular/animations';
+import {SignInService} from '@app/sign-in/sign-in.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'app-sign-in',
@@ -46,7 +48,11 @@ export class SignInComponent implements OnInit {
     animateSigninSwitchState: string;
     animateSigninFadeState: string;
 
-    constructor(private fb: FormBuilder) { }
+    constructor(
+        private fb: FormBuilder,
+        private router: Router,
+        private route: ActivatedRoute,
+        private signInService: SignInService) { }
 
     ngOnInit() {
         this.log_in = this.fb.group({
@@ -70,5 +76,21 @@ export class SignInComponent implements OnInit {
         this.animateSigninFadeState = 'fade-finish';
     }
 
-    login() {}
+    login() {
+        this.signInService
+            .loginUser(this.log_in.value.email, this.log_in.value.password)
+            .then(auth => {
+                auth.getIdToken().then(token => {
+                    if (this.log_in.value.remember_me) {
+                        this.signInService.setRememberMe(auth.uid);
+                    }
+
+                    this.signInService.saveToken(token, auth.uid);
+                    this.signInService.redirectUser(auth);
+                });
+            })
+            .catch(error => {
+                this.error = error.message;
+            });
+    }
 }

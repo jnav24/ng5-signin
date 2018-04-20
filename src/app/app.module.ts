@@ -8,9 +8,13 @@ import {
     MatToolbarModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AngularFireModule} from 'angularfire2';
+import {AngularFireDatabase} from 'angularfire2/database';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 // Config
 import { RouterConfig } from '@app/config/router.config';
+import { firebaseConfig } from '@app/config/firebase.config';
 
 // Components
 import { AppComponent } from '@app/app.component';
@@ -21,6 +25,9 @@ import { RegisterComponent } from './register/register.component';
 // Guard
 import {SignInAuthGuard} from '@app/auth/sign-in-auth.guard';
 
+// Services
+import {SignInService} from '@app/sign-in/sign-in.service';
+
 
 @NgModule({
     declarations: [
@@ -30,6 +37,7 @@ import {SignInAuthGuard} from '@app/auth/sign-in-auth.guard';
         RegisterComponent,
     ],
     imports: [
+        AngularFireModule.initializeApp(firebaseConfig),
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
@@ -45,7 +53,10 @@ import {SignInAuthGuard} from '@app/auth/sign-in-auth.guard';
         RouterModule.forRoot(RouterConfig),
     ],
     providers: [
+        AngularFireDatabase,
+        AngularFireAuth,
         SignInAuthGuard,
+        SignInService,
     ],
     bootstrap: [AppComponent]
 })
