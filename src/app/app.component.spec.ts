@@ -1,27 +1,84 @@
-import { TestBed, async } from '@angular/core/testing';
+import {TestBed, async, ComponentFixture, fakeAsync} from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { RouterConfig } from '@app/config/router.config';
+import {Router} from '@angular/router';
+import {Location} from '@angular/common';
+import {SignInComponent} from '@app/sign-in/sign-in.component';
+import {DashboardComponent} from '@app/dashboard/dashboard.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {
+    MatButtonModule, MatCardModule, MatCheckboxModule, MatIconModule, MatInputModule, MatMenuModule, MatRippleModule,
+    MatToolbarModule
+} from '@angular/material';
+
 describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
-  it(`should have as title 'app'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app');
-  }));
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
-  }));
+    let component: AppComponent;
+    let fixture: ComponentFixture<AppComponent>;
+    let router: Router;
+    let location: Location;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                AppComponent,
+                SignInComponent,
+                DashboardComponent
+            ],
+            imports: [
+                FormsModule,
+                MatButtonModule,
+                MatCardModule,
+                MatCheckboxModule,
+                MatIconModule,
+                MatInputModule,
+                MatMenuModule,
+                MatRippleModule,
+                MatToolbarModule,
+                ReactiveFormsModule,
+                RouterTestingModule.withRoutes(RouterConfig)
+            ]
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+        router = TestBed.get(Router);
+        location = TestBed.get(Location);
+        fixture = TestBed.createComponent(AppComponent);
+        router.initialNavigation();
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create an app', () => {
+        expect(component).toBeTruthy();
+    });
+
+    it('navigate to "" redirects you to login page', <any>fakeAsync(() => {
+        router.navigate([''])
+            .then(() => {
+                expect(router.url).toEqual('/');
+            });
+    }));
+
+    it('random string should redirect you to login page', <any>fakeAsync(() => {
+        router.navigate(['pizza'])
+            .then(() => {
+                expect(router.url).toEqual('/');
+            });
+    }));
+
+    it('"login" should redirect you to login page', <any>fakeAsync(() => {
+        router.navigate(['login'])
+            .then(() => {
+                expect(router.url).toEqual('/');
+            });
+    }));
+
+    it('"dashboard" should redirect you to login page', <any>fakeAsync(() => {
+        router.navigate(['dashboard'])
+            .then(() => {
+                expect(router.url).toEqual('/');
+            });
+    }));
 });
