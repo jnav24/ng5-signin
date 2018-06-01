@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {SignInService} from '@app/sign-in/sign-in.service';
+import {LoginService} from '@app/onboard/login/login.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,15 +7,11 @@ import {SignInService} from '@app/sign-in/sign-in.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+    constructor(private loginService: LoginService) {}
 
-  constructor(
-      private signInService: SignInService
-  ) { }
+    ngOnInit() {}
 
-  ngOnInit() {
-  }
-
-  logout() {
-      return this.signInService.logOutAndRedirect();
-  }
+    logout() {
+        return this.loginService.logOutAndRedirect();
+    }
 }

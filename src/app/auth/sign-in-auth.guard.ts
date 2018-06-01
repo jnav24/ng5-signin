@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, ActivatedRoute} from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import {SignInService} from '@app/sign-in/sign-in.service';
+import {LoginService} from '@app/onboard/login/login.service';
 
 @Injectable()
 export class SignInAuthGuard implements CanActivate {
@@ -11,7 +11,7 @@ export class SignInAuthGuard implements CanActivate {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private signInService: SignInService) {}
+        private loginService: LoginService) {}
 
     canActivate(
         next: ActivatedRouteSnapshot,
@@ -21,13 +21,13 @@ export class SignInAuthGuard implements CanActivate {
     }
 
     authLogin() {
-        if (!this.signInService.user) {
+        if (!this.loginService.user) {
             this.router.navigate(['']);
             this.canLogin = false;
             return false;
         }
 
-        this.signInService.user.subscribe(user => {
+        this.loginService.user.subscribe(user => {
             if (user === null) {
                 this.router.navigate(['']);
                 this.canLogin = false;
@@ -44,12 +44,12 @@ export class SignInAuthGuard implements CanActivate {
 
             this.canLogin = true;
 
-            this.signInService.getUser(user.uid).valueChanges().subscribe(user_data => {
+            this.loginService.getUser(user.uid).valueChanges().subscribe(user_data => {
                 this.user_data = user_data;
 
                 user.getIdToken().then(token => {
                     if (token !== this.user_data.token && !this.user_data.remember_me) {
-                        this.signInService.logOutAndRedirect();
+                        this.loginService.logOutAndRedirect();
                     }
                 });
             });

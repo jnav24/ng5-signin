@@ -18,23 +18,27 @@ import { firebaseConfig } from '@app/config/firebase.config';
 
 // Components
 import { AppComponent } from '@app/app.component';
-import { SignInComponent } from './sign-in/sign-in.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { RegisterComponent } from './register/register.component';
+import { OnboardComponent } from './onboard/onboard.component';
+import { LoginComponent } from './onboard/login/login.component';
+import { RegisterComponent } from './onboard/register/register.component';
 
 // Guard
 import {SignInAuthGuard} from '@app/auth/sign-in-auth.guard';
 
 // Services
-import {SignInService} from '@app/sign-in/sign-in.service';
+import {LoginService} from '@app/onboard/login/login.service';
+import {RegisterService} from '@app/onboard/register/register.service';
+
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        SignInComponent,
         DashboardComponent,
         RegisterComponent,
+        OnboardComponent,
+        LoginComponent,
     ],
     imports: [
         AngularFireModule.initializeApp(firebaseConfig),
@@ -55,8 +59,9 @@ import {SignInService} from '@app/sign-in/sign-in.service';
     providers: [
         AngularFireDatabase,
         AngularFireAuth,
+        LoginService,
+        RegisterService,
         SignInAuthGuard,
-        SignInService,
     ],
     bootstrap: [AppComponent]
 })

@@ -1,19 +1,18 @@
 import {Route} from '@angular/router';
-import {SignInComponent} from '@app/sign-in/sign-in.component';
 import {DashboardComponent} from '@app/dashboard/dashboard.component';
 import {SignInAuthGuard} from '@app/auth/sign-in-auth.guard';
+import {OnboardComponent} from '@app/onboard/onboard.component';
 
-const myPath = '';
 export const RouterConfig: Route[] = [
-    { path: '', redirectTo: myPath + 'login', pathMatch: 'full' },
-    { path: myPath + 'login', component: SignInComponent },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'login', component: OnboardComponent },
     {
-        path: myPath + 'dashboard',
+        path: 'dashboard',
         component: DashboardComponent,
         canActivate: [SignInAuthGuard],
         children: [
             { path: ':uid', component: DashboardComponent }
         ]
     },
-    { path: myPath + '**', redirectTo: 'login' }
+    { path: '**', redirectTo: 'login' }
 ];
