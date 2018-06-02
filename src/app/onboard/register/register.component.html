@@ -5,19 +5,19 @@
 	</div>
 
 	<mat-form-field class="fw-full">
-		<input mdInput placeholder="First Name" formControlName="first_name">
+		<input matInput placeholder="First Name" formControlName="first_name">
 	</mat-form-field>
 
 	<mat-form-field class="fw-full">
-		<input mdInput placeholder="Last Name" formControlName="last_name">
+		<input matInput placeholder="Last Name" formControlName="last_name">
 	</mat-form-field>
 
 	<mat-form-field class="fw-full">
-		<input mdInput placeholder="Email" formControlName="email">
+		<input matInput placeholder="Email" formControlName="email">
 	</mat-form-field>
 
 	<mat-form-field class="fw-full">
-		<input mdInput placeholder="Password"
+		<input matInput placeholder="Password"
 			   type="password"
 			   [formGroup]="signup"
 			   validateConfirm
@@ -26,7 +26,7 @@
 
 	<mat-form-field
 		class="fw-full">
-		<input mdInput placeholder="Confirm Password"
+		<input matInput placeholder="Confirm Password"
 			   validateConfirm
 			   type="password"
 			   [formGroup]="signup"
@@ -35,7 +35,7 @@
 	</mat-form-field>
 
 	<button mat-raised-button class="fw-full"
-			[ngClass]="{'disabled': !sign_up.valid}"
+			[ngClass]="{'disabled': !signup.valid}"
 			[disabled]="!signup.valid"
 			(click)="registerUser()">Sign Up</button>
 
