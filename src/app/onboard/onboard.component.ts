@@ -41,6 +41,8 @@ export class OnboardComponent implements OnInit {
     animateLoginFadeState: string;
     animateRegisterSwitchState: string;
     animateRegisterFadeState: string;
+    animatePasswordSwitchState: string;
+    animatePasswordFadeState: string;
 
     constructor() { }
 
@@ -60,9 +62,16 @@ export class OnboardComponent implements OnInit {
         this.animateLoginFadeState = 'fade-finish';
         this.animateRegisterSwitchState = 'switch-finish';
         this.animateRegisterFadeState = 'fade-start';
+        this.animatePasswordSwitchState = 'switch-finish';
+        this.animatePasswordFadeState = 'fade-start';
     }
 
-    animateToResetPassword() {}
+    animateToResetPassword() {
+        this.animateLoginSwitchState = 'switch-finish';
+        this.animateLoginFadeState = 'fade-start';
+        this.animatePasswordSwitchState = 'switch-start';
+        this.animatePasswordFadeState = 'fade-finish';
+    }
 
     animateState(state: String) {
         switch (state) {

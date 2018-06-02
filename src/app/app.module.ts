@@ -22,6 +22,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { OnboardComponent } from './onboard/onboard.component';
 import { LoginComponent } from './onboard/login/login.component';
 import { RegisterComponent } from './onboard/register/register.component';
+import { ResetPasswordComponent } from './onboard/reset-password/reset-password.component';
 
 // Guard
 import {SignInAuthGuard} from '@app/auth/sign-in-auth.guard';
@@ -39,6 +40,7 @@ import {RegisterService} from '@app/onboard/register/register.service';
         RegisterComponent,
         OnboardComponent,
         LoginComponent,
+        ResetPasswordComponent,
     ],
     imports: [
         AngularFireModule.initializeApp(firebaseConfig),

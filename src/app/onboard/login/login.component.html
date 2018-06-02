@@ -19,10 +19,13 @@
 			(click)="logUserIn()"
 			[disabled]="!login.valid">Login</button>
 
-	<p class="copy">
+	<p class="copy extra">
 		<span>
 			Need an account?
 			<button (click)="animateToRegister()">Sign Up</button>
 		</span>
+
+		<br>
+		<button (click)="animateToResetPassword()">Forgot password?</button>
 	</p>
 </div>

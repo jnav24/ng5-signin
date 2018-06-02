@@ -42,4 +42,8 @@ export class LoginComponent implements OnInit {
     animateToRegister() {
         this.animateTo.emit('register');
     }
+
+    animateToResetPassword() {
+        this.animateTo.emit('reset_password');
+    }
 }
