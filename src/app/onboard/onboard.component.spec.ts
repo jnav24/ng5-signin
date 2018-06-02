@@ -10,6 +10,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LoginService} from '@app/onboard/login/login.service';
 import {RegisterService} from '@app/onboard/register/register.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {By} from '@angular/platform-browser';
 
 class RegisterServiceStub {}
 class LoginServiceStub {}
@@ -54,5 +55,15 @@ describe('OnboardComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should have login component', () => {
+        const loginTag = fixture.debugElement.query(By.css('app-login'));
+        expect(loginTag).not.toBeNull();
+    });
+
+    it('should have register component', () => {
+        const registerTag = fixture.debugElement.query(By.css('app-register'));
+        expect(registerTag).not.toBeNull();
     });
 });
