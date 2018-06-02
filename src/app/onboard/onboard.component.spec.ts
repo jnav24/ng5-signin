@@ -11,6 +11,7 @@ import {LoginService} from '@app/onboard/login/login.service';
 import {RegisterService} from '@app/onboard/register/register.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {By} from '@angular/platform-browser';
+import {ResetPasswordComponent} from '@app/onboard/reset-password/reset-password.component';
 
 class RegisterServiceStub {}
 class LoginServiceStub {}
@@ -25,6 +26,7 @@ describe('OnboardComponent', () => {
                 OnboardComponent,
                 LoginComponent,
                 RegisterComponent,
+                ResetPasswordComponent,
             ],
             imports: [
                 BrowserAnimationsModule,
