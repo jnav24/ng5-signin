@@ -14,57 +14,14 @@
 	margin: 15% auto 0;
 	position: relative;
 	width: 290px;
+
+	.animate {
+		left: 0;
+		opacity: 0;
+		position: absolute;
+	}
 }
 
 .logo {
 	width: 220px;
-}
-
-.form {
-	background: #fff;
-	font-size: 14px;
-	margin: 0 auto;
-	padding: 20px;
-	text-align: left;
-	width: 250px;
-	@include posa(50px,n,n,0);
-
-	button {
-		background: $primary;
-		color: #fff;
-		font-weight: 300;
-		padding: 7px 0;
-
-		&.disabled {
-			background: rgba(#ccc, 0.4);
-		}
-	}
-}
-
-.copy {
-	background: $primary;
-	color: #fff;
-	font-size: 13px;
-	text-align: center;
-	width: 100%;
-	@include posa(n,n,-42px,0);
-
-	a, button {
-		border: 0;
-		color: darken($primary, 20%);
-		text-decoration: none;
-
-		&:hover {
-			text-decoration: underline;
-		}
-	}
-}
-
-.error {
-	background: #E54D42;
-	color: #fff;
-	font-size: 12px;
-	margin-bottom: 15px;
-	padding: 10px;
-	text-align: center;
 }

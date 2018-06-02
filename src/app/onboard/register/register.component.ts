@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RegisterService} from './register.service';
 
@@ -8,6 +8,7 @@ import {RegisterService} from './register.service';
     styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+    @Output() animateTo: EventEmitter<String> = new EventEmitter();
     error: String = '';
     signup: FormGroup;
 
@@ -27,5 +28,7 @@ export class RegisterComponent implements OnInit {
         return this.registerService.createNewUser();
     }
 
-    animateToLogin() {}
+    animateToLogin() {
+        this.animateTo.emit('login');
+    }
 }

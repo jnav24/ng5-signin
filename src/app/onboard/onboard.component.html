@@ -1,10 +1,13 @@
 <div class="container">
 	<div class="form-container">
 		<!-- <img src="assets/images/logo-yak.png" alt="" class="logo"> -->
-		<app-login [@animateSwitchForm]="animateLoginSwitchState"
-				   [@animateFadeForm]="animateLoginFadeState"></app-login>
-		<app-register style="opacity:0.5"
-					  [@animateSwitchForm]="animateSigninSwitchState"
-					  [@animateFadeForm]="animateSigninFadeState"></app-register>
+		<app-login class="animate"
+				   [@animateSwitchForm]="animateLoginSwitchState"
+				   [@animateFadeForm]="animateLoginFadeState"
+				   (animateTo)="animateState($event)"></app-login>
+		<app-register class="animate"
+					  [@animateSwitchForm]="animateRegisterSwitchState"
+					  [@animateFadeForm]="animateRegisterFadeState"
+					  (animateTo)="animateState($event)"></app-register>
 	</div>
 </div>

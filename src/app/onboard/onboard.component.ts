@@ -17,7 +17,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
                 backgroundColor: '#000',
             })),
             transition('switch-start => switch-finish', [
-                animate( 500, style({
+                animate(500, style({
                     backgroundColor: '#cfc',
                     opacity: 0,
                     top: '-999px',
@@ -39,17 +39,43 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 export class OnboardComponent implements OnInit {
     animateLoginSwitchState: string;
     animateLoginFadeState: string;
-    animateSigninSwitchState: string;
-    animateSigninFadeState: string;
+    animateRegisterSwitchState: string;
+    animateRegisterFadeState: string;
 
     constructor() { }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.animateState('login');
+    }
 
-    animateToSignUp() {
+    animateToRegister() {
         this.animateLoginSwitchState = 'switch-finish';
         this.animateLoginFadeState = 'fade-start';
-        this.animateSigninSwitchState = 'switch-start';
-        this.animateSigninFadeState = 'fade-finish';
+        this.animateRegisterSwitchState = 'switch-start';
+        this.animateRegisterFadeState = 'fade-finish';
+    }
+
+    animateToLogin() {
+        this.animateLoginSwitchState = 'switch-start';
+        this.animateLoginFadeState = 'fade-finish';
+        this.animateRegisterSwitchState = 'switch-finish';
+        this.animateRegisterFadeState = 'fade-start';
+    }
+
+    animateToResetPassword() {}
+
+    animateState(state: String) {
+        switch (state) {
+            case 'reset_password':
+                this.animateToResetPassword();
+                break;
+            case 'register':
+                this.animateToRegister();
+                break;
+            case 'login':
+            default:
+                this.animateToLogin();
+                break;
+        }
     }
 }
