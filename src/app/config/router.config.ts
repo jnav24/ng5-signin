@@ -6,6 +6,7 @@ import {OnboardComponent} from '@app/onboard/onboard.component';
 export const RouterConfig: Route[] = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: OnboardComponent },
+    { path: 'register', component: OnboardComponent },
     {
         path: 'dashboard',
         component: DashboardComponent,
