@@ -73,8 +73,8 @@ export class OnboardComponent implements OnInit {
         this.animatePasswordFadeState = 'fade-finish';
     }
 
-    animateState(state: String) {
-        switch (state) {
+    animateState(stateName: String) {
+        switch (stateName) {
             case 'reset_password':
                 this.animateToResetPassword();
                 break;
