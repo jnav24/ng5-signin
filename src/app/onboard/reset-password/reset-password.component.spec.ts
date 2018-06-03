@@ -40,4 +40,16 @@ describe('ResetPasswordComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should have a valid email', () => {
+        const email = 'test@test.com';
+        component.password_reset.controls['email'].setValue(email);
+        expect(component.password_reset.valid).toBeTruthy();
+    });
+
+    it('should have a invalid email', () => {
+        const email = 'testtest.com';
+        component.password_reset.controls['email'].setValue(email);
+        expect(component.password_reset.valid).toBeFalsy();
+    });
 });
