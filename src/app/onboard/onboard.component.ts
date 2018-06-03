@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {ActivatedRoute } from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'app-onboard',
@@ -44,10 +46,14 @@ export class OnboardComponent implements OnInit {
     animatePasswordSwitchState: string;
     animatePasswordFadeState: string;
 
-    constructor() { }
+    constructor(private route: ActivatedRoute, private location: Location) { }
 
     ngOnInit() {
-        this.animateState('login');
+        if (this.route.snapshot.url.length && typeof this.route.snapshot.url[0].path !== 'undefined') {
+            this.animateState(this.route.snapshot.url[0].path);
+        } else {
+            this.animateState('login');
+        }
     }
 
     animateToRegister() {
@@ -76,13 +82,16 @@ export class OnboardComponent implements OnInit {
     animateState(stateName: String) {
         switch (stateName) {
             case 'reset_password':
+                this.location.replaceState('reset_password');
                 this.animateToResetPassword();
                 break;
             case 'register':
+                this.location.replaceState('register');
                 this.animateToRegister();
                 break;
             case 'login':
             default:
+                this.location.replaceState('login');
                 this.animateToLogin();
                 break;
         }

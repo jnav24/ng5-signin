@@ -20,6 +20,7 @@ import {LoginComponent} from '@app/onboard/login/login.component';
 const routes: Route[] = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: OnboardComponent },
+    { path: 'reset_password', component: OnboardComponent },
     { path: 'register', component: OnboardComponent },
     {
         path: 'dashboard',
@@ -116,5 +117,9 @@ describe('AppComponent', () => {
 
     it('should contain a route for /register', () => {
         expect(RouterConfig).toContain({ path: 'register', component: OnboardComponent });
+    });
+
+    it('should contain a route for /reset_password', () => {
+        expect(RouterConfig).toContain({ path: 'reset_password', component: OnboardComponent });
     });
 });

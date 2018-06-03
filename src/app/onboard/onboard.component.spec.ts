@@ -12,6 +12,16 @@ import {RegisterService} from '@app/onboard/register/register.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {By} from '@angular/platform-browser';
 import {ResetPasswordComponent} from '@app/onboard/reset-password/reset-password.component';
+import { Route } from '@angular/router';
+import {RouterTestingModule} from '@angular/router/testing';
+
+const routes: Route[] = [
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'login', component: OnboardComponent },
+    { path: 'reset_password', component: OnboardComponent },
+    { path: 'register', component: OnboardComponent },
+    { path: '**', redirectTo: 'login' }
+];
 
 class RegisterServiceStub {}
 class LoginServiceStub {}
@@ -39,7 +49,8 @@ describe('OnboardComponent', () => {
                 MatMenuModule,
                 MatRippleModule,
                 MatToolbarModule,
-                ReactiveFormsModule
+                ReactiveFormsModule,
+                RouterTestingModule.withRoutes(routes)
             ],
             providers: [
                 { provide: LoginService, useClass: LoginServiceStub },

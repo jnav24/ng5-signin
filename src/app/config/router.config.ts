@@ -7,6 +7,7 @@ export const RouterConfig: Route[] = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: OnboardComponent },
     { path: 'register', component: OnboardComponent },
+    { path: 'reset_password', component: OnboardComponent },
     {
         path: 'dashboard',
         component: DashboardComponent,
