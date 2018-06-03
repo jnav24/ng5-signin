@@ -14,7 +14,7 @@ import {AngularFireAuth} from 'angularfire2/auth';
 
 // Config
 import { RouterConfig } from '@app/config/router.config';
-import { firebaseConfig } from '@app/config/firebase.config';
+import {environmentConfig} from '@app/config/environment.config';
 
 // Components
 import { AppComponent } from '@app/app.component';
@@ -47,7 +47,7 @@ import {RegisterService} from '@app/onboard/register/register.service';
         RegisterValidationDirective,
     ],
     imports: [
-        AngularFireModule.initializeApp(firebaseConfig),
+        AngularFireModule.initializeApp(environmentConfig.firebase),
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
