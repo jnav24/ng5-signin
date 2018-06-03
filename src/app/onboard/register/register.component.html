@@ -20,14 +20,14 @@
 		<input matInput placeholder="Password"
 			   type="password"
 			   [formGroup]="signup"
-			   validateConfirm
+			   appRegisterValidation
 			   formControlName="password">
 	</mat-form-field>
 
 	<mat-form-field
 		class="fw-full">
 		<input matInput placeholder="Confirm Password"
-			   validateConfirm
+			   appRegisterValidation
 			   type="password"
 			   [formGroup]="signup"
 			   name="confirm_password"

@@ -68,4 +68,9 @@ describe('OnboardComponent', () => {
         const registerTag = fixture.debugElement.query(By.css('app-register'));
         expect(registerTag).not.toBeNull();
     });
+
+    it('should have reset component', () => {
+        const registerTag = fixture.debugElement.query(By.css('app-reset-password'));
+        expect(registerTag).not.toBeNull();
+    });
 });
