@@ -33,6 +33,7 @@ import {RegisterValidationDirective} from '@app/onboard/register/register-valida
 // Services
 import {LoginService} from '@app/onboard/login/login.service';
 import {RegisterService} from '@app/onboard/register/register.service';
+import {FirebaseDbService} from '@app/common/services/firebase-db.service';
 
 
 
@@ -65,6 +66,7 @@ import {RegisterService} from '@app/onboard/register/register.service';
     providers: [
         AngularFireDatabase,
         AngularFireAuth,
+        FirebaseDbService,
         LoginService,
         RegisterService,
         SignInAuthGuard,

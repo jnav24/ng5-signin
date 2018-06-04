@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
             email: ['', [Validators.required, Validators.pattern(/\S+@\S+\.\S+/)]],
             password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(24)]],
         });
+
+        this.isUserLoggedIn();
     }
 
     logUserIn() {
@@ -45,5 +47,13 @@ export class LoginComponent implements OnInit {
 
     animateToResetPassword() {
         this.animateTo.emit('reset_password');
+    }
+
+    private isUserLoggedIn() {
+        const auth = false;
+
+        if (auth) {
+            this.loginService.redirectUser(auth);
+        }
     }
 }

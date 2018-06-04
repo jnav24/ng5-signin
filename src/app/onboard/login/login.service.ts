@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+import {FirebaseDbService} from '@app/common/services/firebase-db.service';
 
 @Injectable()
 export class LoginService {
@@ -12,6 +13,7 @@ export class LoginService {
     private route: ActivatedRoute;
 
     constructor(
+        private firebaseDb: FirebaseDbService,
         private af: AngularFireDatabase,
         private auth: AngularFireAuth) {
         this.user = auth.authState;
@@ -35,7 +37,14 @@ export class LoginService {
     }
 
     saveToken(token, uid) {
-        const user = this.af.object(`users/${uid}`);
+        let user;
+
+        if (this.firebaseDb.isFirebase()) {
+            user = this.af.object(`users/${uid}`);
+            return user.update({ token: token});
+        }
+
+        user = this.af.object(`users/${uid}`);
         return user.update({ token: token});
     }
 
