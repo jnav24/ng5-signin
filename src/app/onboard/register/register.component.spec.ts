@@ -12,6 +12,8 @@ import {By} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {UsersService} from '@app/common/services/users.service';
 import {LogService} from '@app/common/services/log.service';
+import {Route} from '@angular/router';
+import {RouterTestingModule} from '@angular/router/testing';
 
 class RegisterServiceStub {
     createNewUser() {}
@@ -19,6 +21,7 @@ class RegisterServiceStub {
 
 class UsersServiceStub {}
 class LogServiceStub {}
+const routes: Route[] = [];
 
 describe('RegisterComponent', () => {
     let component: RegisterComponent;
@@ -42,7 +45,8 @@ describe('RegisterComponent', () => {
                 MatMenuModule,
                 MatRippleModule,
                 MatToolbarModule,
-                ReactiveFormsModule
+                ReactiveFormsModule,
+                RouterTestingModule.withRoutes(routes),
             ],
             providers: [
                 { provide: RegisterService, useClass: RegisterServiceStub },

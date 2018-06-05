@@ -5,6 +5,7 @@ import {UsersService} from '@app/common/services/users.service';
 import {LogService} from '@app/common/services/log.service';
 import * as moment from 'moment';
 import {UserInterface} from '@app/common/interfaces/user.interface';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-register',
@@ -18,6 +19,7 @@ export class RegisterComponent implements OnInit {
 
     constructor(private fb: FormBuilder,
                 private log: LogService,
+                private router: Router,
                 private registerService: RegisterService,
                 private usersService: UsersService) { }
 
@@ -49,6 +51,9 @@ export class RegisterComponent implements OnInit {
 
                     this.usersService
                         .addUser(user, response.uid)
+                        .then(res => {
+                            this.router.navigate(['dashboard', response.uid]);
+                        })
                         .catch(error => {
                             const log = {
                                 message: error,
