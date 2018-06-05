@@ -15,6 +15,7 @@ import {ResetPasswordComponent} from '@app/onboard/reset-password/reset-password
 import { Route } from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {UsersService} from '@app/common/services/users.service';
+import {LogService} from '@app/common/services/log.service';
 
 const routes: Route[] = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -27,6 +28,7 @@ const routes: Route[] = [
 class RegisterServiceStub {}
 class LoginServiceStub {}
 class UsersServiceStub {}
+class LogServiceStub {}
 
 describe('OnboardComponent', () => {
     let component: OnboardComponent;
@@ -58,6 +60,7 @@ describe('OnboardComponent', () => {
                 { provide: LoginService, useClass: LoginServiceStub },
                 { provide: RegisterService, useClass: RegisterServiceStub },
                 { provide: UsersService, useClass: UsersServiceStub },
+                { provide: LogService, useClass: LogServiceStub },
             ]
         })
         .compileComponents();

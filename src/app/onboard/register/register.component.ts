@@ -1,8 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RegisterService} from './register.service';
-import {User} from '@app/common/models/users.model';
 import {UsersService} from '@app/common/services/users.service';
+import {LogService} from '@app/common/services/log.service';
+import * as moment from 'moment';
+import {UserInterface} from '@app/common/interfaces/user.interface';
 
 @Component({
     selector: 'app-register',
@@ -15,6 +17,7 @@ export class RegisterComponent implements OnInit {
     signup: FormGroup;
 
     constructor(private fb: FormBuilder,
+                private log: LogService,
                 private registerService: RegisterService,
                 private usersService: UsersService) { }
 
@@ -30,12 +33,13 @@ export class RegisterComponent implements OnInit {
 
     async registerUser() {
         try {
-            const response = await this.registerService.createNewUser(this.signup.value.email, this.signup.value.password);
+            const response = await this.registerService
+                .createNewUser(this.signup.value.email, this.signup.value.password);
 
             response
                 .getIdToken()
                 .then(token => {
-                    const user: User = {
+                    const user: UserInterface = {
                         email: this.signup.value.email,
                         first_name: this.signup.value.first_name,
                         last_name: this.signup.value.last_name,
@@ -46,20 +50,38 @@ export class RegisterComponent implements OnInit {
                     this.usersService
                         .addUser(user, response.uid)
                         .catch(error => {
-                            console.error(error);
+                            const log = {
+                                message: error,
+                                level: 'error',
+                                page: 'register.addUser',
+                                created: moment().toString()
+                            };
+                            this.log.writeLog(log);
                         });
                 })
                 .catch(error => {
-                    console.error(error);
-                    throw error;
+                    const log = {
+                        message: error,
+                        level: 'error',
+                        page: 'register.getIdToken',
+                        created: moment().toString()
+                    };
+                    this.log.writeLog(log);
                 });
         } catch (err) {
-            // create a log
             if (err.code === 'auth/email-already-in-use') {
                 this.error = 'You already have an account. Did you forget your password?';
             } else {
                 this.error = 'An unexpected error has occurred. Please try again.';
             }
+
+            const log = {
+                message: `email: ${this.signup.value.email}, message: ${this.error}`,
+                level: 'debug',
+                page: 'register.createNewUser',
+                created: moment().toString()
+            };
+            this.log.writeLog(log);
         }
     }
 

@@ -11,12 +11,14 @@ import {RegisterValidationDirective} from '@app/onboard/register/register-valida
 import {By} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {UsersService} from '@app/common/services/users.service';
+import {LogService} from '@app/common/services/log.service';
 
 class RegisterServiceStub {
     createNewUser() {}
 }
 
 class UsersServiceStub {}
+class LogServiceStub {}
 
 describe('RegisterComponent', () => {
     let component: RegisterComponent;
@@ -45,6 +47,7 @@ describe('RegisterComponent', () => {
             providers: [
                 { provide: RegisterService, useClass: RegisterServiceStub },
                 { provide: UsersService, useClass: UsersServiceStub },
+                { provide: LogService, useClass: LogServiceStub },
             ]
         })
         .compileComponents();

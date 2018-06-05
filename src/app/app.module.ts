@@ -36,6 +36,7 @@ import {LoginService} from '@app/onboard/login/login.service';
 import {RegisterService} from '@app/onboard/register/register.service';
 import {FirebaseDbService} from '@app/common/services/firebase-db.service';
 import {UsersService} from '@app/common/services/users.service';
+import {LogService} from '@app/common/services/log.service';
 
 
 
@@ -74,6 +75,7 @@ import {UsersService} from '@app/common/services/users.service';
         RegisterService,
         SignInAuthGuard,
         UsersService,
+        LogService,
     ],
     bootstrap: [AppComponent]
 })

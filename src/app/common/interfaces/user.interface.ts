@@ -1,4 +1,4 @@
-export interface User {
+export interface UserInterface {
     remember_me?: boolean;
     image?: string;
     email: string;

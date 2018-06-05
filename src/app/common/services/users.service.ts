@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {FirebaseDbService} from '@app/common/services/firebase-db.service';
 import {AngularFireDatabase} from 'angularfire2/database';
-import {User} from '@app/common/models/users.model';
 import {AngularFirestore} from 'angularfire2/firestore';
+import {UserInterface} from '@app/common/interfaces/user.interface';
 
 @Injectable()
 export class UsersService {
@@ -12,7 +12,7 @@ export class UsersService {
                 private afs: AngularFirestore,
                 private af: AngularFireDatabase) {}
 
-    addUser(data: User, uid: string): Promise<any> {
+    addUser(data: UserInterface, uid: string): Promise<any> {
         let user;
 
         if (this.fdb.isFirebase()) {
