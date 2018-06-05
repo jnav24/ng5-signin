@@ -1,6 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RegisterService} from './register.service';
+import {User} from '@app/common/models/users.model';
+import {UsersService} from '@app/common/services/users.service';
 
 @Component({
     selector: 'app-register',
@@ -12,7 +14,9 @@ export class RegisterComponent implements OnInit {
     error: String = '';
     signup: FormGroup;
 
-    constructor(private fb: FormBuilder, private registerService: RegisterService) { }
+    constructor(private fb: FormBuilder,
+                private registerService: RegisterService,
+                private usersService: UsersService) { }
 
     ngOnInit() {
         this.signup = this.fb.group({
@@ -24,8 +28,39 @@ export class RegisterComponent implements OnInit {
         });
     }
 
-    registerUser() {
-        return this.registerService.createNewUser();
+    async registerUser() {
+        try {
+            const response = await this.registerService.createNewUser(this.signup.value.email, this.signup.value.password);
+
+            response
+                .getIdToken()
+                .then(token => {
+                    const user: User = {
+                        email: this.signup.value.email,
+                        first_name: this.signup.value.first_name,
+                        last_name: this.signup.value.last_name,
+                        active: true,
+                        token: token,
+                    };
+
+                    this.usersService
+                        .addUser(user, response.uid)
+                        .catch(error => {
+                            console.error(error);
+                        });
+                })
+                .catch(error => {
+                    console.error(error);
+                    throw error;
+                });
+        } catch (err) {
+            // create a log
+            if (err.code === 'auth/email-already-in-use') {
+                this.error = 'You already have an account. Did you forget your password?';
+            } else {
+                this.error = 'An unexpected error has occurred. Please try again.';
+            }
+        }
     }
 
     animateToLogin() {

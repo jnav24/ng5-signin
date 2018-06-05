@@ -11,6 +11,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFireAuth} from 'angularfire2/auth';
+import {AngularFirestore} from 'angularfire2/firestore';
 
 // Config
 import { RouterConfig } from '@app/config/router.config';
@@ -34,6 +35,7 @@ import {RegisterValidationDirective} from '@app/onboard/register/register-valida
 import {LoginService} from '@app/onboard/login/login.service';
 import {RegisterService} from '@app/onboard/register/register.service';
 import {FirebaseDbService} from '@app/common/services/firebase-db.service';
+import {UsersService} from '@app/common/services/users.service';
 
 
 
@@ -66,10 +68,12 @@ import {FirebaseDbService} from '@app/common/services/firebase-db.service';
     providers: [
         AngularFireDatabase,
         AngularFireAuth,
+        AngularFirestore,
         FirebaseDbService,
         LoginService,
         RegisterService,
         SignInAuthGuard,
+        UsersService,
     ],
     bootstrap: [AppComponent]
 })

@@ -10,10 +10,13 @@ import {RegisterService} from './register.service';
 import {RegisterValidationDirective} from '@app/onboard/register/register-validation.directive';
 import {By} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {UsersService} from '@app/common/services/users.service';
 
 class RegisterServiceStub {
     createNewUser() {}
 }
+
+class UsersServiceStub {}
 
 describe('RegisterComponent', () => {
     let component: RegisterComponent;
@@ -40,7 +43,8 @@ describe('RegisterComponent', () => {
                 ReactiveFormsModule
             ],
             providers: [
-                { provide: RegisterService, useClass: RegisterServiceStub }
+                { provide: RegisterService, useClass: RegisterServiceStub },
+                { provide: UsersService, useClass: UsersServiceStub },
             ]
         })
         .compileComponents();

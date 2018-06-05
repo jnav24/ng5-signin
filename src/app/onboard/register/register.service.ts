@@ -14,7 +14,7 @@ export class RegisterService {
         this.user = auth.authState;
     }
 
-    createNewUser() {
-        // return true;
+    createNewUser(email: string, pass: string): Promise<any> {
+        return this.auth.auth.createUserWithEmailAndPassword(email, pass);
     }
 }
