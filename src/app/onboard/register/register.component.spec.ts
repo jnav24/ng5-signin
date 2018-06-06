@@ -100,8 +100,8 @@ describe('RegisterComponent', () => {
         component.signup.controls['email'].setValue(email);
         component.signup.controls['password'].setValue(password);
         component.signup.controls['confirm_password'].setValue(confirm_password);
-        const directive = fixture.debugElement.query(By.directive(RegisterValidationDirective));
-        directive.triggerEventHandler('change', { validateConfirm: false });
+        // const directive = fixture.debugElement.query(By.directive(RegisterValidationDirective));
+        // directive.triggerEventHandler('change', { validateConfirm: false });
         expect(component.signup.valid).toBeFalsy();
     });
 
@@ -117,8 +117,8 @@ describe('RegisterComponent', () => {
         component.signup.controls['email'].setValue(email);
         component.signup.controls['password'].setValue(password);
         component.signup.controls['confirm_password'].setValue(confirm_password);
-        const directive = fixture.debugElement.query(By.directive(RegisterValidationDirective));
-        directive.triggerEventHandler('change', { validateConfirm: true });
+        // const directive = fixture.debugElement.query(By.directive(RegisterValidationDirective));
+        // directive.triggerEventHandler('change', { validateConfirm: true });
         expect(component.signup.valid).toBeTruthy();
     });
 });

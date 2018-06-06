@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RegisterService} from './register.service';
 import {UsersService} from '@app/common/services/users.service';
 import {LogService} from '@app/common/services/log.service';
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
             last_name: ['', [Validators.required, Validators.minLength(3)]],
             email: ['', [Validators.required, Validators.pattern(/\S+@\S+\.\S+/)]],
             password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(24)]],
-            confirm_password: ['', [Validators.required]],
+            confirm_password: ['', [Validators.required, CustomValidator.passwordMatch()]],
         });
     }
 
@@ -92,5 +92,17 @@ export class RegisterComponent implements OnInit {
 
     animateToLogin() {
         this.animateTo.emit('login');
+    }
+}
+
+export class CustomValidator {
+    static passwordMatch() {
+        return (control: AbstractControl) => {
+            if (control.value && control.value !== control.root.get('password').value) {
+                return { validateConfirm: false };
+            }
+
+            return null;
+        };
     }
 }
