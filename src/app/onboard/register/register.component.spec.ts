@@ -7,7 +7,6 @@ import {
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RegisterService} from './register.service';
-import {RegisterValidationDirective} from '@app/onboard/register/register-validation.directive';
 import {By} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {UsersService} from '@app/common/services/users.service';
@@ -32,7 +31,6 @@ describe('RegisterComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 RegisterComponent,
-                RegisterValidationDirective
             ],
             imports: [
                 BrowserAnimationsModule,

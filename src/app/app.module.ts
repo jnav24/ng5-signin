@@ -28,9 +28,6 @@ import { ResetPasswordComponent } from './onboard/reset-password/reset-password.
 // Guard
 import {SignInAuthGuard} from '@app/auth/sign-in-auth.guard';
 
-// Directives
-import {RegisterValidationDirective} from '@app/onboard/register/register-validation.directive';
-
 // Services
 import {LoginService} from '@app/onboard/login/login.service';
 import {RegisterService} from '@app/onboard/register/register.service';
@@ -48,7 +45,6 @@ import {LogService} from '@app/common/services/log.service';
         OnboardComponent,
         LoginComponent,
         ResetPasswordComponent,
-        RegisterValidationDirective,
     ],
     imports: [
         AngularFireModule.initializeApp(environmentConfig.firebase),
