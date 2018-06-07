@@ -3,6 +3,7 @@ import {FirebaseDbService} from '@app/common/services/firebase-db.service';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {UserInterface} from '@app/common/interfaces/user.interface';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 @Injectable()
 export class UsersService {
@@ -10,6 +11,7 @@ export class UsersService {
 
     constructor(private fdb: FirebaseDbService,
                 private afs: AngularFirestore,
+                private auth: AngularFireAuth,
                 private af: AngularFireDatabase) {}
 
     addUser(data: UserInterface, uid: string): Promise<any> {
@@ -36,5 +38,9 @@ export class UsersService {
 
     getUserByUid(uid: String): Boolean {
         return true;
+    }
+
+    getAuth() {
+        return this.auth.authState;
     }
 }
