@@ -9,12 +9,6 @@ export class UsersResolver implements Resolve<UserInterface> {
     constructor(private usersService: UsersService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
-        // console.log(this.usersService.getAuth());
-            // .subscribe(auth => {
-            //     this.usersService
-            //         .getUserByUid(auth.uid);
-            // });
-    //     return this.usersService.getCurrentUser(route.params['uid']).first();
         return true;
     }
 }

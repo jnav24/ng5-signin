@@ -3,7 +3,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { RouterConfig } from '@app/config/router.config';
 import { AppComponent } from './app.component';
 import {OnboardComponent} from '@app/onboard/onboard.component';
-import {SignInAuthGuard} from '@app/auth/sign-in-auth.guard';
 import {DashboardComponent} from '@app/dashboard/dashboard.component';
 import {Router, RouterOutlet, Route} from '@angular/router';
 import {Location} from '@angular/common';
@@ -16,6 +15,7 @@ import {By} from '@angular/platform-browser';
 import {RegisterComponent} from '@app/onboard/register/register.component';
 import {ResetPasswordComponent} from '@app/onboard/reset-password/reset-password.component';
 import {LoginComponent} from '@app/onboard/login/login.component';
+import {DashboardAuthGuard} from '@app/dashboard/dashboard-auth.guard';
 
 const routes: Route[] = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -25,7 +25,7 @@ const routes: Route[] = [
     {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [SignInAuthGuard],
+        canActivate: [DashboardAuthGuard],
         children: [
             { path: ':uid', component: DashboardComponent }
         ]
