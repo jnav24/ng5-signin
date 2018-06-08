@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {ActivatedRoute } from '@angular/router';
 import {Location} from '@angular/common';
+import {UsersService} from '@app/common/services/users.service';
 
 @Component({
     selector: 'app-onboard',
@@ -46,7 +47,9 @@ export class OnboardComponent implements OnInit {
     animatePasswordSwitchState: string;
     animatePasswordFadeState: string;
 
-    constructor(private route: ActivatedRoute, private location: Location) { }
+    constructor(private route: ActivatedRoute,
+                private usersService: UsersService,
+                private location: Location) { }
 
     ngOnInit() {
         if (this.route.snapshot.url.length && typeof this.route.snapshot.url[0].path !== 'undefined') {

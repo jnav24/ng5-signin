@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
                     this.usersService
                         .addUser(user, response.uid)
                         .then(res => {
-                            this.router.navigate(['dashboard', response.uid]);
+                            this.router.navigate(['dashboard']);
                         })
                         .catch(error => {
                             const log = {

@@ -41,6 +41,6 @@ export class UsersService {
     }
 
     getAuth() {
-        return this.auth.authState;
+        return this.auth.auth;
     }
 }

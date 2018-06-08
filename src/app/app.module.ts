@@ -26,7 +26,7 @@ import { RegisterComponent } from './onboard/register/register.component';
 import { ResetPasswordComponent } from './onboard/reset-password/reset-password.component';
 
 // Guard
-import {SignInAuthGuard} from '@app/auth/sign-in-auth.guard';
+import {DashboardAuthGuard} from '@app/dashboard/dashboard-auth.guard';
 
 // Services
 import {LoginService} from '@app/onboard/login/login.service';
@@ -69,7 +69,7 @@ import {LogService} from '@app/common/services/log.service';
         FirebaseDbService,
         LoginService,
         RegisterService,
-        SignInAuthGuard,
+        DashboardAuthGuard,
         UsersService,
         LogService,
     ],

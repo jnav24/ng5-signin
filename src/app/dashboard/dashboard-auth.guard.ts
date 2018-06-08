@@ -4,10 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import {UsersService} from '@app/common/services/users.service';
 
 @Injectable()
-export class SignInAuthGuard implements CanActivate {
-    private canLogin: boolean;
-    private user_data;
-
+export class DashboardAuthGuard implements CanActivate {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
@@ -15,7 +12,18 @@ export class SignInAuthGuard implements CanActivate {
 
     canActivate(
         next: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        return this.usersService.getAuth() !== null;
+        state: RouterStateSnapshot): Observable<boolean> {
+        return Observable.create(obs => {
+            this.usersService
+                .getAuth()
+                .onAuthStateChanged(authenticated => {
+                   if (authenticated === null) {
+                       obs.next(false);
+                       this.router.navigate(['']);
+                   }
+
+                   obs.next(true);
+                });
+        });
     }
 }
