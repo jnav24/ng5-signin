@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit {
                         })
                         .catch(error => {
                             const log = {
-                                message: error,
+                                message: error.message,
                                 level: 'error',
                                 page: 'register.addUser',
                                 created: moment().toString()
@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
                 })
                 .catch(error => {
                     const log = {
-                        message: error,
+                        message: error.message,
                         level: 'error',
                         page: 'register.getIdToken',
                         created: moment().toString()

@@ -22,6 +22,7 @@ export class DashboardAuthGuard implements CanActivate {
                        this.router.navigate(['']);
                    }
 
+                   this.usersService.setUserUid(authenticated.uid);
                    obs.next(true);
                 });
         });

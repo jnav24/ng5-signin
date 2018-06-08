@@ -4,6 +4,7 @@ import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {UserInterface} from '@app/common/interfaces/user.interface';
 import {AngularFireAuth} from 'angularfire2/auth';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class UsersService {
@@ -31,13 +32,15 @@ export class UsersService {
     }
 
     setUserUid(uid: String) {
-        if (this.getUserByUid(uid)) {
-            this.uid = uid;
-        }
+        this.uid = uid;
     }
 
-    getUserByUid(uid: String): Boolean {
-        return true;
+    getUserByUid(uid: string): Observable<{}> {
+        if (this.fdb.isFirebase()) {
+            return this.af.list(`/users/${uid}`).valueChanges();
+        }
+
+        return this.afs.collection('users').doc(uid).valueChanges();
     }
 
     getAuth() {

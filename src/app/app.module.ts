@@ -28,6 +28,9 @@ import { ResetPasswordComponent } from './onboard/reset-password/reset-password.
 // Guard
 import {DashboardAuthGuard} from '@app/dashboard/dashboard-auth.guard';
 
+// Resolvers
+import {UsersResolver} from '@app/common/resolvers/users.resolvers';
+
 // Services
 import {LoginService} from '@app/onboard/login/login.service';
 import {RegisterService} from '@app/onboard/register/register.service';
@@ -71,6 +74,7 @@ import {LogService} from '@app/common/services/log.service';
         RegisterService,
         DashboardAuthGuard,
         UsersService,
+        UsersResolver,
         LogService,
     ],
     bootstrap: [AppComponent]
