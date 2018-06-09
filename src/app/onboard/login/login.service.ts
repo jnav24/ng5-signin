@@ -75,9 +75,7 @@ export class LoginService {
         return user.update({ token: token});
     }
 
-    redirectUser(user) {
-        if (user !== null && typeof user.uid !== 'undefined') {
-            this.router.navigate(['dashboard', user.uid]);
-        }
+    redirectUser() {
+        this.router.navigate(['dashboard']);
     }
 }
