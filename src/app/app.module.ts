@@ -27,6 +27,7 @@ import { ResetPasswordComponent } from './onboard/reset-password/reset-password.
 
 // Guard
 import {DashboardAuthGuard} from '@app/dashboard/dashboard-auth.guard';
+import {OnboardGuard} from '@app/onboard/onboard.guard';
 
 // Resolvers
 import {UsersResolver} from '@app/common/resolvers/users.resolvers';
@@ -72,6 +73,7 @@ import {LogService} from '@app/common/services/log.service';
         FirebaseDbService,
         LoginService,
         RegisterService,
+        OnboardGuard,
         DashboardAuthGuard,
         UsersService,
         UsersResolver,

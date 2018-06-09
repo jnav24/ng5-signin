@@ -3,12 +3,13 @@ import {DashboardComponent} from '@app/dashboard/dashboard.component';
 import {DashboardAuthGuard} from '@app/dashboard/dashboard-auth.guard';
 import {OnboardComponent} from '@app/onboard/onboard.component';
 import {UsersResolver} from '@app/common/resolvers/users.resolvers';
+import {OnboardGuard} from '@app/onboard/onboard.guard';
 
 export const RouterConfig: Route[] = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'login', component: OnboardComponent },
-    { path: 'register', component: OnboardComponent },
-    { path: 'reset_password', component: OnboardComponent },
+    { path: 'login', component: OnboardComponent, canActivate: [OnboardGuard] },
+    { path: 'register', component: OnboardComponent, canActivate: [OnboardGuard] },
+    { path: 'reset_password', component: OnboardComponent, canActivate: [OnboardGuard] },
     {
         path: 'dashboard',
         component: DashboardComponent,
