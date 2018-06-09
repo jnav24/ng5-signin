@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
 import {UsersService} from '@app/common/services/users.service';
-import {Observable} from 'rxjs/Observable';
 import {UserInterface} from '@app/common/interfaces/user.interface';
 import {LogService} from '@app/common/services/log.service';
-import * as moment from 'moment';
 
 @Injectable()
 export class UsersResolver implements Resolve<UserInterface> {
@@ -28,8 +26,7 @@ export class UsersResolver implements Resolve<UserInterface> {
            const log = {
                level: 'error',
                message: error.message,
-               page: 'users-resolver.resolve',
-               created: moment().toString()
+               page: 'users-resolver.resolve'
            };
            this.log.writeLog(log);
        }

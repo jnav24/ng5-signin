@@ -6,10 +6,13 @@ import {
     MatToolbarModule
 } from '@angular/material';
 import {LoginService} from './login.service';
+import {LogService} from '@app/common/services/log.service';
 
 class LoginServiceStub {
     loginUser(email, password) {}
 }
+
+class LogServiceStub {}
 
 class AuthStub {
     uid;
@@ -37,7 +40,8 @@ describe('LoginComponent', () => {
                 ReactiveFormsModule
             ],
             providers: [
-                { provide: LoginService, useClass: LoginServiceStub }
+                { provide: LoginService, useClass: LoginServiceStub },
+                { provide: LogService, useClass: LogServiceStub }
             ]
         })
             .compileComponents();

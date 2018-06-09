@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginService} from './login.service';
+import {LogService} from '@app/common/services/log.service';
 
 @Component({
     selector: 'app-login',
@@ -12,7 +13,9 @@ export class LoginComponent implements OnInit {
     error: String = '';
     login: FormGroup;
 
-    constructor(private fb: FormBuilder, private loginService: LoginService) { }
+    constructor(private fb: FormBuilder,
+                private log: LogService,
+                private loginService: LoginService) { }
 
     ngOnInit() {
         this.login = this.fb.group({
@@ -35,7 +38,12 @@ export class LoginComponent implements OnInit {
                 });
             })
             .catch(error => {
-                this.error = error.message;
+                const log = {
+                    level: 'error',
+                    page: 'login.logUserIn',
+                    message: error.message
+                };
+                this.log.writeLog(log);
             });
     }
 

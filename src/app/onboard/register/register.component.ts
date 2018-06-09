@@ -3,7 +3,6 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {RegisterService} from './register.service';
 import {UsersService} from '@app/common/services/users.service';
 import {LogService} from '@app/common/services/log.service';
-import * as moment from 'moment';
 import {UserInterface} from '@app/common/interfaces/user.interface';
 import {Router} from '@angular/router';
 
@@ -58,8 +57,7 @@ export class RegisterComponent implements OnInit {
                             const log = {
                                 message: error.message,
                                 level: 'error',
-                                page: 'register.addUser',
-                                created: moment().toString()
+                                page: 'register.addUser'
                             };
                             this.log.writeLog(log);
                         });
@@ -68,8 +66,7 @@ export class RegisterComponent implements OnInit {
                     const log = {
                         message: error.message,
                         level: 'error',
-                        page: 'register.getIdToken',
-                        created: moment().toString()
+                        page: 'register.getIdToken'
                     };
                     this.log.writeLog(log);
                 });
@@ -83,8 +80,7 @@ export class RegisterComponent implements OnInit {
             const log = {
                 message: `email: ${this.signup.value.email}, message: ${this.error}`,
                 level: 'debug',
-                page: 'register.createNewUser',
-                created: moment().toString()
+                page: 'register.createNewUser'
             };
             this.log.writeLog(log);
         }
