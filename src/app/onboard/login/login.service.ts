@@ -1,19 +1,17 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFireAuth} from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
 import {FirebaseDbService} from '@app/common/services/firebase-db.service';
 import {AngularFirestore} from 'angularfire2/firestore';
 
 @Injectable()
 export class LoginService {
     user: Observable<any>;
-    private router: Router;
-    private route: ActivatedRoute;
 
     constructor(
+        private router: Router,
         private firebaseDb: FirebaseDbService,
         private afs: AngularFirestore,
         private af: AngularFireDatabase,
@@ -71,7 +69,7 @@ export class LoginService {
             return user.update({ token: token});
         }
 
-        user = this.afs.collection(`users/`).doc(uid);
+        user = this.afs.collection(`users`).doc(uid);
         return user.update({ token: token});
     }
 
