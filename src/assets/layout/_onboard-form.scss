@@ -1,0 +1,57 @@
+.form {
+	background: #fff;
+	font-size: 14px;
+	margin: 0 auto;
+	padding: 20px;
+	text-align: left;
+	width: 250px;
+
+	.checkbox {
+		font-size: 13px;
+	}
+
+	button {
+		background: $primary;
+		color: #fff;
+		font-weight: 300;
+		padding: 10px 0;
+
+		&.disabled {
+			background: rgba(#ccc, 0.4);
+		}
+	}
+}
+
+.copy {
+	background: $primary;
+	color: #fff;
+	font-size: 13px;
+	margin: 0;
+	padding: 10px 0;
+	text-align: center;
+	width: 100%;
+
+	&.extra {
+		bottom: -80px;
+	}
+
+	a, button {
+		background: none;
+		border: 0;
+		color: $secondary;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+.error {
+	background: #E54D42;
+	color: #fff;
+	font-size: 12px;
+	margin-bottom: 15px;
+	padding: 10px;
+	text-align: center;
+}
