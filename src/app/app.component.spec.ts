@@ -16,6 +16,7 @@ import {RegisterComponent} from '@app/onboard/register/register.component';
 import {ResetPasswordComponent} from '@app/onboard/reset-password/reset-password.component';
 import {LoginComponent} from '@app/onboard/login/login.component';
 import {DashboardAuthGuard} from '@app/dashboard/dashboard-auth.guard';
+import {OnboardGuard} from '@app/onboard/onboard.guard';
 
 const routes: Route[] = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -112,14 +113,14 @@ describe('AppComponent', () => {
     }));
 
     it('should contain a route for /login', () => {
-        expect(RouterConfig).toContain({ path: 'login', component: OnboardComponent });
+        expect(RouterConfig).toContain({ path: 'login', component: OnboardComponent, canActivate: [OnboardGuard] });
     });
 
     it('should contain a route for /register', () => {
-        expect(RouterConfig).toContain({ path: 'register', component: OnboardComponent });
+        expect(RouterConfig).toContain({ path: 'register', component: OnboardComponent, canActivate: [OnboardGuard] });
     });
 
     it('should contain a route for /reset_password', () => {
-        expect(RouterConfig).toContain({ path: 'reset_password', component: OnboardComponent });
+        expect(RouterConfig).toContain({ path: 'reset_password', component: OnboardComponent, canActivate: [OnboardGuard] });
     });
 });
