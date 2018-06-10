@@ -12,7 +12,7 @@
 		<input matInput placeholder="Password" type="password" formControlName="password">
 	</mat-form-field>
 
-	<mat-checkbox class="login">Remember me</mat-checkbox>
+	<mat-checkbox class="login" formControlName="remember_me">Remember me</mat-checkbox>
 
 	<button mat-raised-button class="fw-full"
 			[ngClass]="{'disabled': !login.valid}"

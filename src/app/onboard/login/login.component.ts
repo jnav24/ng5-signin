@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
         this.login = this.fb.group({
             email: ['', [Validators.required, Validators.pattern(/\S+@\S+\.\S+/)]],
             password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(24)]],
+            remember_me: ['', []]
         });
     }
 
@@ -30,7 +31,9 @@ export class LoginComponent implements OnInit {
             .then(auth => {
                 auth.getIdToken().then(token => {
                     if (this.login.value.remember_me) {
-                        this.loginService.setRememberMe(auth.uid);
+                        this.loginService.setRememberMe(auth.uid, true);
+                    } else {
+                        this.loginService.setRememberMe(auth.uid, false);
                     }
 
                     this.loginService.saveToken(token, auth.uid);

@@ -5,12 +5,14 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {UserInterface} from '@app/common/interfaces/user.interface';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Observable} from 'rxjs/Observable';
+import {LogService} from '@app/common/services/log.service';
 
 @Injectable()
 export class UsersService {
     private uid: String;
 
     constructor(private fdb: FirebaseDbService,
+                private log: LogService,
                 private afs: AngularFirestore,
                 private auth: AngularFireAuth,
                 private af: AngularFireDatabase) {}

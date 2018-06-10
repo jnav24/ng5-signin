@@ -48,9 +48,9 @@ export class LoginService {
         return user.update({ token: '' });
     }
 
-    setRememberMe(uid) {
+    setRememberMe(uid: string, value: boolean) {
         let user;
-        const data = { remember_me: true };
+        const data = { remember_me: value };
 
         if (this.firebaseDb.isFirebase()) {
             user = this.af.object(`users/${uid}`);
