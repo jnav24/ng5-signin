@@ -5,6 +5,7 @@ import {UsersService} from '@app/common/services/users.service';
 import {LogService} from '@app/common/services/log.service';
 import {UserInterface} from '@app/common/interfaces/user.interface';
 import {Router} from '@angular/router';
+import {ControlsService} from '@app/common/services/controls.service';
 
 @Component({
     selector: 'app-register',
@@ -15,14 +16,20 @@ export class RegisterComponent implements OnInit {
     @Output() animateTo: EventEmitter<String> = new EventEmitter();
     error: String = '';
     signup: FormGroup;
+    allowRegister: boolean;
 
     constructor(private fb: FormBuilder,
                 private log: LogService,
+                private controlsService: ControlsService,
                 private router: Router,
                 private registerService: RegisterService,
                 private usersService: UsersService) { }
 
     ngOnInit() {
+        this.controlsService.allowRegistration().then(res => {
+            this.allowRegister = res;
+        });
+
         this.signup = this.fb.group({
             first_name: ['', [Validators.required, Validators.minLength(3)]],
             last_name: ['', [Validators.required, Validators.minLength(3)]],
