@@ -38,6 +38,7 @@ import {RegisterService} from '@app/onboard/register/register.service';
 import {FirebaseDbService} from '@app/common/services/firebase-db.service';
 import {UsersService} from '@app/common/services/users.service';
 import {LogService} from '@app/common/services/log.service';
+import {ResetPasswordService} from '@app/onboard/reset-password/reset-password.service';
 
 
 
@@ -78,6 +79,7 @@ import {LogService} from '@app/common/services/log.service';
         UsersService,
         UsersResolver,
         LogService,
+        ResetPasswordService,
     ],
     bootstrap: [AppComponent]
 })

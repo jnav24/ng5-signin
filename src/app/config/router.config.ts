@@ -15,9 +15,6 @@ export const RouterConfig: Route[] = [
         component: DashboardComponent,
         canActivate: [DashboardAuthGuard],
         resolve: { user: UsersResolver }
-        // children: [
-        //     { path: ':uid', component: DashboardComponent }
-        // ]
     },
     { path: '**', redirectTo: 'login' }
 ];
