@@ -5,6 +5,7 @@ import {
     MatToolbarModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ResetPasswordService} from '@app/onboard/reset-password/reset-password.service';
 
 class ResetPasswordServiceStub {}
 
@@ -27,6 +28,9 @@ describe('ResetPasswordComponent', () => {
                 MatToolbarModule,
                 ReactiveFormsModule
             ],
+            providers: [
+                {provide: ResetPasswordService, useClass: ResetPasswordServiceStub }
+            ]
         })
         .compileComponents();
     }));
