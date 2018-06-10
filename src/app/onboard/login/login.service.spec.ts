@@ -10,6 +10,7 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {OnboardComponent} from '@app/onboard/onboard.component';
 import {Route} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
+import {LogService} from '@app/common/services/log.service';
 
 
 const routes: Route[] = [
@@ -33,6 +34,7 @@ describe('LoginService', () => {
                 AngularFireAuth,
                 AngularFirestore,
                 LoginService,
+                LogService,
                 FirebaseDbService,
             ],
             schemas: [NO_ERRORS_SCHEMA]
