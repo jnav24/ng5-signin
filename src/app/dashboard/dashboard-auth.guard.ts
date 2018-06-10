@@ -20,6 +20,7 @@ export class DashboardAuthGuard implements CanActivate {
                    if (authenticated === null) {
                        obs.next(false);
                        this.router.navigate(['']);
+                       return false;
                    }
 
                    this.usersService.setUserUid(authenticated.uid);
