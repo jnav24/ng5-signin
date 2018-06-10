@@ -2,10 +2,12 @@ import {Injectable} from '@angular/core';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {FirebaseDbService} from '@app/common/services/firebase-db.service';
+import {LogService} from '@app/common/services/log.service';
 
 @Injectable()
 export class ControlsService {
     constructor(private fdb: FirebaseDbService,
+                private log: LogService,
                 private af: AngularFireDatabase,
                 private afs: AngularFirestore) {}
 
@@ -36,6 +38,12 @@ export class ControlsService {
 
             return false;
         } catch (error) {
+            const log = {
+                level: 'debug',
+                message: error.message,
+                page: 'controlsService.allowRegistration'
+            };
+            this.log.writeLog(log);
             return false;
         }
     }
