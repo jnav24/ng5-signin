@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
     @Output() animateTo: EventEmitter<String> = new EventEmitter();
     error: String = '';
     signup: FormGroup;
-    allowRegister: boolean;
+    allowRegister = true;
 
     constructor(private fb: FormBuilder,
                 private log: LogService,

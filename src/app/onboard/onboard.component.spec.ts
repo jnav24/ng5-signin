@@ -17,6 +17,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {UsersService} from '@app/common/services/users.service';
 import {LogService} from '@app/common/services/log.service';
 import {ResetPasswordService} from '@app/onboard/reset-password/reset-password.service';
+import {ControlsService} from '@app/common/services/controls.service';
 
 const routes: Route[] = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -30,6 +31,13 @@ class RegisterServiceStub {}
 class LoginServiceStub {}
 class UsersServiceStub {}
 class LogServiceStub {}
+class ControlsServiceStub {
+    allowRegistration() {
+        return new Promise((resolve) => {
+            resolve(true);
+        });
+    }
+}
 class ResetPasswordServiceStub {}
 
 describe('OnboardComponent', () => {
@@ -64,6 +72,7 @@ describe('OnboardComponent', () => {
                 { provide: UsersService, useClass: UsersServiceStub },
                 { provide: LogService, useClass: LogServiceStub },
                 { provide: ResetPasswordService, useClass: ResetPasswordServiceStub },
+                { provide: ControlsService, useClass: ControlsServiceStub },
             ]
         })
         .compileComponents();

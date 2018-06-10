@@ -13,6 +13,7 @@ import {UsersService} from '@app/common/services/users.service';
 import {LogService} from '@app/common/services/log.service';
 import {Route} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
+import {ControlsService} from '@app/common/services/controls.service';
 
 class RegisterServiceStub {
     createNewUser() {}
@@ -20,6 +21,13 @@ class RegisterServiceStub {
 
 class UsersServiceStub {}
 class LogServiceStub {}
+class ControlsServiceStub {
+    allowRegistration() {
+        return new Promise((resolve) => {
+            resolve(true);
+        });
+    }
+}
 const routes: Route[] = [];
 
 describe('RegisterComponent', () => {
@@ -50,6 +58,7 @@ describe('RegisterComponent', () => {
                 { provide: RegisterService, useClass: RegisterServiceStub },
                 { provide: UsersService, useClass: UsersServiceStub },
                 { provide: LogService, useClass: LogServiceStub },
+                { provide: ControlsService, useClass: ControlsServiceStub },
             ]
         })
         .compileComponents();
