@@ -11,21 +11,17 @@ import {UsersService} from '@app/common/services/users.service';
     animations: [
         trigger('animateSwitchForm', [
             state('switch-start', style({
-                backgroundColor: '#fff',
                 opacity: 1,
                 top: '50px',
                 zIndex: 1
             })),
             state('switch-finish', style({
-                backgroundColor: '#000',
+                opacity: 0,
+                top: '-999px',
+                zIndex: 1
             })),
             transition('switch-start => switch-finish', [
-                animate(500, style({
-                    backgroundColor: '#cfc',
-                    opacity: 0,
-                    top: '-999px',
-                    zIndex: 1
-                }))
+                animate(500)
             ])
         ]),
         trigger('animateFadeForm', [
