@@ -1,11 +1,7 @@
 <div class="form"
 	 [formGroup]="login">
 	<div class="logo logo__container">
-		<div class="logo-lock__container">
-			<div class="logo-lock__head"></div>
-			<div class="logo-lock__key"></div>
-			<div class="logo-lock__body"></div>
-		</div>
+		<mat-icon class="icon icon__lock">lock</mat-icon>
 	</div>
 	<h2 class="text-center">Login</h2>
 	<div class="error" *ngIf="error.length">

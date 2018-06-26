@@ -57,8 +57,21 @@
 	text-align: center;
 }
 
+.icon {
+	height: auto;
+	width: auto;
+
+	&__lock {
+		color: #fff;
+		font-size: 60px;
+	}
+}
+
 .logo {
 	&__container {
+		align-items: center;
+		display: flex;
+		justify-content: center;
 		margin: 0 auto 20px;
 		position: relative;
 		@include circle(100px, $secondary);

@@ -32,6 +32,7 @@ export class ResetPasswordComponent implements OnInit {
 
                 setTimeout(() => {
                     this.reset = false;
+                    this.animateTo.emit('login');
                 }, 10000);
             })
             .catch(error => {
