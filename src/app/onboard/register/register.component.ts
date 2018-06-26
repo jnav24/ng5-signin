@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
     error: String = '';
     signup: FormGroup;
     allowRegister = true;
+    loading: Boolean = false;
 
     constructor(private fb: FormBuilder,
                 private log: LogService,
@@ -41,6 +42,7 @@ export class RegisterComponent implements OnInit {
 
     async registerUser() {
         try {
+            this.loading = true;
             const response = await this.registerService
                 .createNewUser(this.signup.value.email, this.signup.value.password);
 
@@ -61,6 +63,7 @@ export class RegisterComponent implements OnInit {
                             this.router.navigate(['dashboard']);
                         })
                         .catch(error => {
+                            this.loading = false;
                             const log = {
                                 message: error.message,
                                 level: 'error',
@@ -70,6 +73,7 @@ export class RegisterComponent implements OnInit {
                         });
                 })
                 .catch(error => {
+                    this.loading = false;
                     const log = {
                         message: error.message,
                         level: 'error',

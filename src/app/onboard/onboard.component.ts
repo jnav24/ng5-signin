@@ -21,7 +21,7 @@ import {UsersService} from '@app/common/services/users.service';
                 zIndex: 1
             })),
             transition('switch-start => switch-finish', [
-                animate(500)
+                animate('500ms ease-out')
             ])
         ]),
         trigger('animateFadeForm', [

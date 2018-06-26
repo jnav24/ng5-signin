@@ -45,9 +45,11 @@
 		</mat-form-field>
 
 		<button mat-raised-button class="fw-full"
-				[ngClass]="{'disabled': !signup.valid}"
-				[disabled]="!signup.valid"
-				(click)="registerUser()">Sign Up</button>
+				[ngClass]="{'disabled': !signup.valid || loading}"
+				[disabled]="!signup.valid || loading"
+				(click)="registerUser()">
+			<mat-spinner *ngIf="loading" diameter="25" color="warn"></mat-spinner>
+			<span *ngIf="!loading">Sign Up</span></button>
 	</div>
 </div>
 

@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
     @Output() animateTo: EventEmitter<String> = new EventEmitter();
     error: String = '';
     login: FormGroup;
+    loading: Boolean = false;
 
     constructor(private fb: FormBuilder,
                 private log: LogService,
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
     }
 
     logUserIn() {
+        this.loading = true;
         this.loginService
             .loginUser(this.login.value.email, this.login.value.password)
             .then(auth => {
@@ -41,6 +43,7 @@ export class LoginComponent implements OnInit {
                 });
             })
             .catch(error => {
+                this.loading = false;
                 const log = {
                     level: 'error',
                     page: 'login.logUserIn',

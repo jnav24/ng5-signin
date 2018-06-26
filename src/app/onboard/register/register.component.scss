@@ -7,3 +7,9 @@
 		@include circle(100px, $secondary);
 	}
 }
+
+.center-button {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
