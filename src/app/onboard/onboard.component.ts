@@ -32,7 +32,11 @@ import {UsersService} from '@app/common/services/users.service';
                 opacity: 1
             })),
             transition('fade-start => fade-finish', animate(500))
-        ])
+        ]),
+        trigger('fadeOut', [
+            state('finish', style({ opacity: 0 })),
+            transition('* => finish', animate('500ms ease-out'))
+        ]),
     ]
 })
 export class OnboardComponent implements OnInit {
@@ -42,6 +46,7 @@ export class OnboardComponent implements OnInit {
     animateRegisterFadeState: string;
     animatePasswordSwitchState: string;
     animatePasswordFadeState: string;
+    animateFadeOut: string;
 
     constructor(private route: ActivatedRoute,
                 private usersService: UsersService,
@@ -78,8 +83,18 @@ export class OnboardComponent implements OnInit {
         this.animatePasswordFadeState = 'fade-finish';
     }
 
+    animateToDashboard() {
+        this.animateFadeOut = 'finish';
+        setTimeout(() => {
+            // this.animateSlideUp = 'finish';
+        }, 750);
+    }
+
     animateState(stateName: String) {
         switch (stateName) {
+            case 'auth':
+                this.animateToDashboard();
+                break;
             case 'reset_password':
                 this.location.replaceState('reset_password');
                 this.animateToResetPassword();

@@ -18,13 +18,15 @@
 
 	<mat-checkbox class="login checkbox" formControlName="remember_me">Remember me</mat-checkbox>
 
-	<button mat-raised-button class="fw-full center-button"
-			[ngClass]="{'disabled': !login.valid || loading}"
-			(click)="logUserIn()"
-			[disabled]="!login.valid || loading">
-		<mat-spinner *ngIf="loading" diameter="25" color="warn"></mat-spinner>
-		<span *ngIf="!loading">Login</span>
-	</button>
+	<div class="form-actions">
+		<button mat-raised-button class="fw-full center-button"
+				[ngClass]="{'disabled': !login.valid || loading, 'loader': loading}"
+				(click)="logUserIn()"
+				[disabled]="!login.valid || loading">
+			<mat-spinner *ngIf="loading" diameter="25" color="warn"></mat-spinner>
+			<span *ngIf="!loading">Login</span>
+		</button>
+	</div>
 </div>
 
 <p class="copy extra">

@@ -10,6 +10,7 @@ import {LogService} from '@app/common/services/log.service';
 @Injectable()
 export class LoginService {
     user: Observable<any>;
+    private fromLogin: Boolean = false;
 
     constructor(
         private router: Router,
@@ -84,5 +85,13 @@ export class LoginService {
 
     redirectUser(): void {
         this.router.navigate(['dashboard']);
+    }
+
+    isFromLogin() {
+        return this.fromLogin;
+    }
+
+    setIsFromLogin(value: Boolean) {
+        this.fromLogin = value;
     }
 }

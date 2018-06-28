@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
         this.loginService
             .loginUser(this.login.value.email, this.login.value.password)
             .then(auth => {
+                this.loginService.setIsFromLogin(true);
                 auth.getIdToken().then(token => {
                     if (this.login.value.remember_me) {
                         this.loginService.setRememberMe(auth.uid, true);
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
                     }
 
                     this.loginService.saveToken(token, auth.uid);
-                    this.loginService.redirectUser();
+                    this.animateTo.emit('auth');
                 });
             })
             .catch(error => {
