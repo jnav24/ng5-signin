@@ -49,6 +49,8 @@ export class RegisterComponent implements OnInit {
             response
                 .getIdToken()
                 .then(token => {
+                    this.animateTo.emit('auth');
+                    this.registerService.setIsFromRegister(true);
                     const user: UserInterface = {
                         email: this.signup.value.email,
                         first_name: this.signup.value.first_name,
@@ -59,9 +61,7 @@ export class RegisterComponent implements OnInit {
 
                     this.usersService
                         .addUser(user, response.uid)
-                        .then(res => {
-                            this.router.navigate(['dashboard']);
-                        })
+                        .then(res => {})
                         .catch(error => {
                             this.loading = false;
                             const log = {

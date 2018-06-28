@@ -35,7 +35,7 @@ import {UsersService} from '@app/common/services/users.service';
         ]),
         trigger('fadeOut', [
             state('finish', style({ opacity: 0 })),
-            transition('* => finish', animate('500ms ease-out'))
+            transition('* => finish', animate('500ms ease-in'))
         ]),
     ]
 })
@@ -85,9 +85,6 @@ export class OnboardComponent implements OnInit {
 
     animateToDashboard() {
         this.animateFadeOut = 'finish';
-        setTimeout(() => {
-            // this.animateSlideUp = 'finish';
-        }, 750);
     }
 
     animateState(stateName: String) {
