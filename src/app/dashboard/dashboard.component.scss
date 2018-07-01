@@ -1,4 +1,5 @@
 @import '../../assets/base/imports';
+$size: 30px;
 
 .loginEnter {
 	background: map-get($colors, primary);
@@ -6,4 +7,40 @@
 	width: 100%;
 	z-index: 10;
 	@include posa(0,n,n,0);
+}
+
+.nav {
+	justify-content: center;
+
+	> div {
+		flex: 1 1 auto;
+	}
+
+	&__profile {
+		text-align: right;
+
+		.material-icons {
+			cursor: pointer;
+			font-size: $size;
+			height: $size;
+			width: $size;
+		}
+	}
+}
+
+.profile-img {
+	display: inline-block;
+	display: none; // temporarily
+	overflow: hidden;
+	@include circle(($size - 3px), white);
+}
+
+.content-container {
+	margin: 0 auto;
+	width: 1000px;
+
+	&.content-animate {
+		opacity: 0;
+		transform: translateY(-50%);
+	}
 }

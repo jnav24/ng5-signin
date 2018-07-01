@@ -1,13 +1,23 @@
-<div class="loginEnter"><button (click)="logout()">
-	Sign Out
-</button></div>
+<div [@fromLogin]="fromLoginState"
+	 *ngIf="showLoginAnimate"
+	 class="loginEnter">
+</div>
 
-<p>
-	{{ user.first_name }}
-	{{ user.email }}
-  dashboard works!
-</p>
+<mat-toolbar [@showMenu]="showMenuState"
+			 class="nav"
+			 color="primary">
+	<div class="nav__logo">Logo Here</div>
 
-<button (click)="logout()">
-	Sign Out
-</button>
+	<div class="nav__profile">
+		<mat-icon [matMenuTriggerFor]="profileMenu">account_circle</mat-icon>
+		<div class="profile-img" [matMenuTriggerFor]="profileMenu"></div>
+		<mat-menu #profileMenu="matMenu" yPosition="above" overlapTrigger="false">
+			<button mat-menu-item>Edit Profile</button>
+			<button mat-menu-item (click)="logout()">Log Out</button>
+		</mat-menu>
+	</div>
+</mat-toolbar>
+
+<div [@fadeIn]="fadeState" class="content-container" [ngClass]="{'content-animate': showLoginAnimate}">
+	<h1>Welcome, {{ user.first_name }} {{ user.last_name }}</h1>
+</div>
