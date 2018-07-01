@@ -1,13 +1,5 @@
 @import '../../../assets/base/imports';
 
-.logo {
-	&__container {
-		margin: 0 auto 20px;
-		position: relative;
-		@include circle(100px, $secondary);
-	}
-}
-
 .center-button {
 	align-items: center;
 	display: flex;

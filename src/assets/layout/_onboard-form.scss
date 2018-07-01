@@ -11,7 +11,7 @@
 	}
 
 	button {
-		background: $primary;
+		background: map_get($colors, accent);
 		color: #fff;
 		font-weight: 300;
 		padding: 10px 0;
@@ -39,7 +39,6 @@
 	a, button {
 		background: none;
 		border: 0;
-		color: $secondary;
 		text-decoration: none;
 
 		&:hover {
@@ -74,7 +73,7 @@
 		justify-content: center;
 		margin: 0 auto 20px;
 		position: relative;
-		@include circle(100px, $secondary);
+		@include circle(100px, map_get($colors, primary));
 	}
 
 	.logo-lock {

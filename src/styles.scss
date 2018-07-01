@@ -7,7 +7,7 @@
 @import './assets/base/imports';
 
 body, html {
-	color: lighten(#000, 25%);
+	color: map_get($colors, body-copy);
 	font: {
 		family: 'Open Sans', sans-serif;
 		size: 16px;
@@ -18,6 +18,10 @@ body, html {
 h2 {
 	color: #000;
 	font-weight: 300;
+}
+
+a, button, a.link, button.link {
+	color: map_get($colors, link-primary);
 }
 
 .text-center {
