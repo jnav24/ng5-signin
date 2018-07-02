@@ -1,5 +1,6 @@
 <div [@fromLogin]="fromLoginState"
-	 *ngIf="showLoginAnimate"
+	 (@fromLogin.done)="setAnimateState()"
+	 [ngClass]="{'logoutState': !showLoginAnimate}"
 	 class="loginEnter">
 </div>
 

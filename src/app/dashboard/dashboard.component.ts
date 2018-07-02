@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {LoginService} from '@app/onboard/login/login.service';
 import {ActivatedRoute} from '@angular/router';
 import {UserInterface} from '@app/common/interfaces/user.interface';
-import {animate, query, stagger, state, style, transition, trigger} from '@angular/animations';
+import {animate, query, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
     selector: 'app-dashboard',
@@ -10,29 +10,47 @@ import {animate, query, stagger, state, style, transition, trigger} from '@angul
     styleUrls: ['./dashboard.component.scss'],
     animations: [
         trigger('fromLogin', [
-            state('finish', style({
+            transition('* => login', animate('1250ms 0ms ease-in', style({
                 opacity: 0,
                 top: '-9999px'
-            })),
-            transition('* => finish', animate('1250ms 0ms ease-in'))
+            }))),
+            transition('* => logout', animate('1250ms 500ms ease-out', style({
+                opacity: 1,
+                top: '0'
+            }))),
         ]),
         trigger('showMenu', [
-            transition('* => finish', [
+            transition('* => login', [
                 query(':self', style({ transform: 'translateY(-100%)' })),
                 query('.nav__logo, .nav__profile', style({ opacity: 0 })),
                 query(':self', animate('500ms 350ms ease-out', style({
                     transform: 'translateY(0)'
                 }))),
                 query('.nav__logo, .nav__profile', animate(500, style({ opacity: 1 }))),
-            ])
+            ]),
+            transition('* => logout', [
+                query(':self', style({ transform: 'translateY(0)' })),
+                query('.nav__logo, .nav__profile', style({ opacity: 1 })),
+                query(':self', animate('500ms 250ms ease-in', style({
+                    transform: 'translateY(-100%)'
+                }))),
+                query('.nav__logo, .nav__profile', animate(500, style({ opacity: 0 }))),
+            ]),
         ]),
         trigger('fadeIn', [
-            state('finish', style({
+            state('logout', style({
+                opacity: 0,
+                transform: 'translateY(-50%)'
+            })),
+            state('login', style({
                 opacity: 1,
                 transform: 'translateY(0)'
             })),
-            transition('* => finish', [
+            transition('* => login', [
                 animate('500ms 800ms ease-out')
+            ]),
+            transition('* => logout', [
+                animate('500ms ease-in')
             ])
         ])
     ]
@@ -60,14 +78,27 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private animateFromLogin() {
         if (this.loginService.isFromLogin()) {
             this.showLoginAnimate = true;
-            this.fromLoginState = 'finish';
-            this.showMenuState = 'finish';
-            this.fadeState = 'finish';
+            this.fromLoginState = 'login';
+            this.showMenuState = 'login';
+            this.fadeState = 'login';
             this.loginService.setIsFromLogin(false);
         }
     }
 
+    setAnimateState() {
+        if (this.fromLoginState === 'logout') {
+            this.showLoginAnimate = true;
+        } else {
+            this.showLoginAnimate = false;
+        }
+    }
+
     logout() {
-        return this.loginService.logOutAndRedirect();
+        this.fromLoginState = 'logout';
+        this.showMenuState = 'logout';
+        this.fadeState = 'logout';
+        setTimeout(() => {
+            return this.loginService.logOutAndRedirect();
+        }, 2000);
     }
 }

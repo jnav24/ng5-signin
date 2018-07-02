@@ -4,13 +4,26 @@ $size: 30px;
 .loginEnter {
 	background: map-get($colors, primary);
 	height: 100%;
+	opacity: 1;
 	width: 100%;
 	z-index: 10;
 	@include posa(0,n,n,0);
+
+	&.logoutState {
+		opacity: 0;
+		top: -9999px;
+	}
 }
 
 .nav {
 	justify-content: center;
+	opacity: 1;
+	transform: translateY(0);
+
+	&.logoutState {
+		opacity: 0;
+		transform: translateY(-100%);
+	}
 
 	> div {
 		flex: 1 1 auto;
