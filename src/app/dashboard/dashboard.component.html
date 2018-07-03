@@ -5,6 +5,8 @@
 </div>
 
 <mat-toolbar [@showMenu]="showMenuState"
+			 (@showMenu.done)="setMenuAnimateState()"
+			 [ngClass]="{'logoutState': showMenuAnimate}"
 			 class="nav"
 			 color="primary">
 	<div class="nav__logo">Logo Here</div>

@@ -3,6 +3,7 @@ import {LoginService} from '@app/onboard/login/login.service';
 import {ActivatedRoute} from '@angular/router';
 import {UserInterface} from '@app/common/interfaces/user.interface';
 import {animate, query, state, style, transition, trigger} from '@angular/animations';
+import {RegisterService} from '@app/onboard/register/register.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -14,7 +15,7 @@ import {animate, query, state, style, transition, trigger} from '@angular/animat
                 opacity: 0,
                 top: '-9999px'
             }))),
-            transition('* => logout', animate('1250ms 500ms ease-out', style({
+            transition('* => logout', animate('1250ms ease-out', style({
                 opacity: 1,
                 top: '0'
             }))),
@@ -30,8 +31,8 @@ import {animate, query, state, style, transition, trigger} from '@angular/animat
             ]),
             transition('* => logout', [
                 query(':self', style({ transform: 'translateY(0)' })),
-                query('.nav__logo, .nav__profile', style({ opacity: 1 })),
-                query(':self', animate('500ms 250ms ease-in', style({
+                query('.nav__logo, .nav__profile', style({ opacity: 0 })),
+                query(':self', animate('500ms 150ms ease-in', style({
                     transform: 'translateY(-100%)'
                 }))),
                 query('.nav__logo, .nav__profile', animate(500, style({ opacity: 0 }))),
@@ -61,9 +62,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     showMenuState: String;
     fadeState: String;
     showLoginAnimate: Boolean = false;
+    showMenuAnimate: Boolean = false;
     user: UserInterface;
 
     constructor(private loginService: LoginService,
+                private registerService: RegisterService,
                 private route: ActivatedRoute) {}
 
     ngOnInit() {
@@ -76,7 +79,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     private animateFromLogin() {
-        if (this.loginService.isFromLogin()) {
+        if (this.loginService.isFromLogin() || this.registerService.isFromRegister()) {
             this.showLoginAnimate = true;
             this.fromLoginState = 'login';
             this.showMenuState = 'login';
@@ -90,6 +93,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.showLoginAnimate = true;
         } else {
             this.showLoginAnimate = false;
+        }
+    }
+
+    setMenuAnimateState() {
+        if (this.showMenuState === 'logout') {
+            this.showMenuAnimate = true;
         }
     }
 

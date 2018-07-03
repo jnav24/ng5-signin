@@ -6,6 +6,7 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import {FirebaseDbService} from '@app/common/services/firebase-db.service';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {LogService} from '@app/common/services/log.service';
+import {UsersService} from '@app/common/services/users.service';
 
 @Injectable()
 export class LoginService {
@@ -15,6 +16,7 @@ export class LoginService {
     constructor(
         private router: Router,
         private firebaseDb: FirebaseDbService,
+        private userService: UsersService,
         private log: LogService,
         private afs: AngularFirestore,
         private af: AngularFireDatabase,
@@ -27,6 +29,7 @@ export class LoginService {
     }
 
     logOutAndRedirect(): void {
+        this.userService.setUserUid('');
         this.logoutUser()
             .then(auth => {
                 this.router.navigate(['login']);
