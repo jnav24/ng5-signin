@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {LoginService} from '@app/onboard/login/login.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, RouterOutlet} from '@angular/router';
 import {UserInterface} from '@app/common/interfaces/user.interface';
-import {animate, query, state, style, transition, trigger} from '@angular/animations';
+import {animate, group, query, state, style, transition, trigger} from '@angular/animations';
 import {RegisterService} from '@app/onboard/register/register.service';
 
 @Component({
@@ -53,6 +53,21 @@ import {RegisterService} from '@app/onboard/register/register.service';
             transition('* => logout', [
                 animate('500ms ease-in')
             ])
+        ]),
+        trigger('routerTransition', [
+            transition('* <=> *', [
+                query(':enter, :leave', style({ position: 'absolute' })),
+                group([
+                    query(':enter', [
+                        style({ opacity: 0, transform: 'translateX(25%)' }),
+                        animate('500ms ease-in-out', style({ opacity: 1, transform: 'translateX(0)' }))
+                    ]),
+                    query(':leave', [
+                        style({ opacity: 1, transform: 'translateX(0)' }),
+                        animate('200ms ease-out', style({ opacity: 0, transform: 'translateX(-25%)' }))
+                    ], { optional: true}),
+                ])
+            ]),
         ])
     ]
 })
@@ -100,6 +115,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
         if (this.showMenuState === 'logout') {
             this.showMenuAnimate = true;
         }
+    }
+
+    getRouteState(outlet: RouterOutlet) {
+        return outlet.activatedRouteData['page'];
     }
 
     logout() {

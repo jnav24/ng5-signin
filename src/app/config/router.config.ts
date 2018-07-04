@@ -4,6 +4,8 @@ import {DashboardAuthGuard} from '@app/dashboard/dashboard-auth.guard';
 import {OnboardComponent} from '@app/onboard/onboard.component';
 import {UsersResolver} from '@app/common/resolvers/users.resolvers';
 import {OnboardGuard} from '@app/onboard/onboard.guard';
+import {DashboardHomeComponent} from '@app/dashboard/dashboard-home/dashboard-home.component';
+import {DashboardProfileComponent} from '@app/dashboard/dashboard-profile/dashboard-profile.component';
 
 export const RouterConfig: Route[] = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -14,7 +16,11 @@ export const RouterConfig: Route[] = [
         path: 'dashboard',
         component: DashboardComponent,
         canActivate: [DashboardAuthGuard],
-        resolve: { user: UsersResolver }
+        resolve: { user: UsersResolver },
+        children: [
+            { path: '', component: DashboardHomeComponent, data: { page: 'home'} },
+            { path: 'edit/profile', component: DashboardProfileComponent, data: { page: 'edit-profile'} }
+        ]
     },
     { path: '**', redirectTo: 'login' }
 ];

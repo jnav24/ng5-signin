@@ -20,6 +20,8 @@ import {environmentConfig} from '@app/config/environment.config';
 // Components
 import { AppComponent } from '@app/app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardHomeComponent } from './dashboard/dashboard-home/dashboard-home.component';
+import { DashboardProfileComponent } from './dashboard/dashboard-profile/dashboard-profile.component';
 import { OnboardComponent } from './onboard/onboard.component';
 import { LoginComponent } from './onboard/login/login.component';
 import { RegisterComponent } from './onboard/register/register.component';
@@ -51,6 +53,8 @@ import {ControlsService} from '@app/common/services/controls.service';
         OnboardComponent,
         LoginComponent,
         ResetPasswordComponent,
+        DashboardProfileComponent,
+        DashboardHomeComponent,
     ],
     imports: [
         AngularFireModule.initializeApp(environmentConfig.firebase),
