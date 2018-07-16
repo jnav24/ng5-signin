@@ -54,4 +54,9 @@ $size: 30px;
 		opacity: 0;
 		transform: translateY(-50%);
 	}
+
+	@include mobile() {
+		margin: 0 pxtoem(15);
+		width: auto;
+	}
 }

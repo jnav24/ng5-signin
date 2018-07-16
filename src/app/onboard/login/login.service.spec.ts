@@ -11,6 +11,7 @@ import {OnboardComponent} from '@app/onboard/onboard.component';
 import {Route} from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import {LogService} from '@app/common/services/log.service';
+import {UsersService} from '@app/common/services/users.service';
 
 
 const routes: Route[] = [
@@ -36,6 +37,7 @@ describe('LoginService', () => {
                 LoginService,
                 LogService,
                 FirebaseDbService,
+                UsersService
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });

@@ -9,7 +9,7 @@ import {Location} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
     MatButtonModule, MatCardModule, MatCheckboxModule, MatIconModule, MatInputModule, MatMenuModule, MatRippleModule,
-    MatToolbarModule
+    MatToolbarModule, MatProgressSpinnerModule
 } from '@angular/material';
 import {By} from '@angular/platform-browser';
 import {RegisterComponent} from '@app/onboard/register/register.component';
@@ -60,6 +60,7 @@ describe('AppComponent', () => {
                 MatMenuModule,
                 MatRippleModule,
                 MatToolbarModule,
+                MatProgressSpinnerModule,
                 ReactiveFormsModule,
                 RouterTestingModule.withRoutes(routes)
             ]

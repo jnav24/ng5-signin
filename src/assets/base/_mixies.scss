@@ -1,1 +1,29 @@
 $navHeight: 65px;
+
+@mixin mobile($direction: 'down') {
+	@if $direction == down or $direction == only {
+		@media screen and (max-width: 599px) {
+			@content;
+		}
+	} @else {
+		@media screen and (min-width: 320px) {
+			@content;
+		}
+	}
+}
+
+@mixin tablet($direction: 'down') {
+	@if $direction == only {
+		@media screen and (min-width: 600px) and (max-width: 768px) {
+			@content;
+		}
+	} @else if $direction == down {
+		@media screen and (max-width: 768px) {
+			@content;
+		}
+	} @else {
+		@media screen and (min-width: 600px) {
+			@content;
+		}
+	}
+}

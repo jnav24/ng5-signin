@@ -3,7 +3,7 @@ import { RegisterComponent } from './register.component';
 import {
     MatButtonModule,
     MatCardModule, MatCheckboxModule, MatIconModule, MatInputModule, MatMenuModule, MatRippleModule,
-    MatToolbarModule
+    MatToolbarModule, MatProgressSpinnerModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RegisterService} from './register.service';
@@ -48,6 +48,7 @@ describe('RegisterComponent', () => {
                 MatCheckboxModule,
                 MatIconModule,
                 MatInputModule,
+                MatProgressSpinnerModule,
                 MatMenuModule,
                 MatRippleModule,
                 MatToolbarModule,

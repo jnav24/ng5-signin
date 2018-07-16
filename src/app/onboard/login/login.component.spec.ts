@@ -3,7 +3,7 @@ import { LoginComponent } from './login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
     MatButtonModule, MatCardModule, MatCheckboxModule, MatIconModule, MatInputModule, MatMenuModule, MatRippleModule,
-    MatToolbarModule
+    MatToolbarModule, MatProgressSpinnerModule
 } from '@angular/material';
 import {LoginService} from './login.service';
 import {LogService} from '@app/common/services/log.service';
@@ -34,6 +34,7 @@ describe('LoginComponent', () => {
                 MatCheckboxModule,
                 MatIconModule,
                 MatInputModule,
+                MatProgressSpinnerModule,
                 MatMenuModule,
                 MatRippleModule,
                 MatToolbarModule,
