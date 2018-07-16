@@ -27,3 +27,19 @@ $navHeight: 65px;
 		}
 	}
 }
+
+@mixin smDesktop($direction: 'down') {
+	@if $direction == only {
+		@media screen and (min-width: 769px) and (max-width: 1024px) {
+			@content;
+		}
+	} @else if $direction == down {
+		@media screen and (max-width: 1024px) {
+			@content;
+		}
+	} @else {
+		@media screen and (min-width: 769px) {
+			@content;
+		}
+	}
+}

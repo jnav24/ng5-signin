@@ -55,7 +55,7 @@ $size: 30px;
 		transform: translateY(-50%);
 	}
 
-	@include mobile() {
+	@include smDesktop() {
 		margin: 0 pxtoem(15);
 		width: auto;
 	}
