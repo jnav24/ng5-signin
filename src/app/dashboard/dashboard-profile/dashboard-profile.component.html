@@ -1,3 +1,39 @@
-<p>
-  dashboard-profile works!
-</p>
+<mat-card>
+	<mat-card-header>
+		<div mat-card-avatar>
+			<div class="profile-hover" (click)="openFileBrowser()">
+				<div class="profile-hover__row">
+					<mat-icon>photo</mat-icon>
+				</div>
+				<input id="edit-profile-input" type="file" (change)="detectFiles($event)" class="edit-profile-input">
+			</div>
+			<mat-icon class="profile-icon">account_circle</mat-icon>
+			<!--<img src="https://i.pinimg.com/736x/e5/71/b0/e571b0969455c8992da31558a2d3633f&#45;&#45;page-design-ui-design.jpg">-->
+		</div>
+	</mat-card-header>
+
+	<mat-tab-group>
+		<mat-tab label="Me" [formGroup]="profile">
+			<div class="mat-tab-pt">
+				<div class="fw-half__float">
+					<mat-form-field class="col">
+						<input matInput placeholder="First Name" formControlName="fname">
+					</mat-form-field>
+
+					<mat-form-field class="col">
+						<input matInput placeholder="Last Name" formControlName="lname">
+					</mat-form-field>
+				</div>
+
+				<mat-form-field class="fw-full">
+					<input matInput placeholder="Email" formControlName="email">
+				</mat-form-field>
+
+				<div class="form-actions">
+					<button mat-raised-button class="btn btn-accent">Save</button>
+				</div>
+			</div>
+		</mat-tab>
+		<mat-tab label="Security"> Content 2 </mat-tab>
+	</mat-tab-group>
+</mat-card>

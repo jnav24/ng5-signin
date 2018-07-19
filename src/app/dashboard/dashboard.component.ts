@@ -11,7 +11,7 @@ import {RegisterService} from '@app/onboard/register/register.service';
     styleUrls: ['./dashboard.component.scss'],
     animations: [
         trigger('fromLogin', [
-            transition('* => login', animate('1250ms 0ms ease-in', style({
+            transition('* => login', animate('1250ms ease-in', style({
                 opacity: 0,
                 top: '-9999px'
             }))),
@@ -56,7 +56,7 @@ import {RegisterService} from '@app/onboard/register/register.service';
         ]),
         trigger('routerTransition', [
             transition('* <=> *', [
-                query(':enter, :leave', style({ position: 'absolute' })),
+                query(':enter, :leave', style({ position: 'absolute', width: '100%' })),
                 group([
                     query(':enter', [
                         style({ opacity: 0, transform: 'translateX(25%)' }),

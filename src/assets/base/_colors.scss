@@ -27,5 +27,8 @@ $colors: (
 	danger: map_get($awesome-app-warn, A400),
 	link-primary: map_get($awesome-app-primary, 900),
 	button-primary: map_get($awesome-app-primary, 900),
-	body-copy: map_get($mat-gray, 600)
+	body-copy: map_get($mat-gray, 600),
+	lte-grey: map_get($mat-gray, 50),
+	mid-grey: map_get($mat-gray, 400),
+	drk-grey: map_get($mat-gray, 900),
 );
