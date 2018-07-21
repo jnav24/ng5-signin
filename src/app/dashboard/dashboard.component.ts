@@ -118,6 +118,10 @@ export class DashboardComponent implements OnInit {
         return outlet.activatedRouteData['page'];
     }
 
+    hasImage() {
+        return typeof this.user.image !== 'undefined' && this.user.image.trim().length;
+    }
+
     logout() {
         this.fromLoginState = 'logout';
         this.showMenuState = 'logout';
