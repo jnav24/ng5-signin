@@ -86,6 +86,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.userSubscription = this.route.data.subscribe(user => this.user = user.user);
+        console.log(this.user);
         this.animateFromLogin();
     }
 

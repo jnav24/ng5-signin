@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {UsersService} from '@app/common/services/users.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-dashboard-profile',
@@ -8,18 +7,10 @@ import {FormBuilder, FormGroup} from '@angular/forms';
     styleUrls: ['./dashboard-profile.component.scss']
 })
 export class DashboardProfileComponent implements OnInit {
-    profile: FormGroup;
 
-    constructor(private usersService: UsersService,
-                private fb: FormBuilder) { }
+    constructor(private usersService: UsersService) { }
 
-    ngOnInit() {
-        this.profile = this.fb.group({
-            fname: [],
-            lname: [],
-            email: []
-        });
-    }
+    ngOnInit() {}
 
     detectFiles(event) {
         console.log(event.target.files);
