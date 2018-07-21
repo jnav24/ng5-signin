@@ -16,7 +16,7 @@ export class LoginService {
     constructor(
         private router: Router,
         private firebaseDb: FirebaseDbService,
-        private userService: UsersService,
+        private usersService: UsersService,
         private log: LogService,
         private afs: AngularFirestore,
         private af: AngularFireDatabase,
@@ -29,7 +29,7 @@ export class LoginService {
     }
 
     logOutAndRedirect(): void {
-        this.userService.resetUser();
+        this.usersService.resetUser();
         this.logoutUser()
             .then(auth => {
                 this.router.navigate(['login']);

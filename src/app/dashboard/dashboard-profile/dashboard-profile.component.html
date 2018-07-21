@@ -7,13 +7,13 @@
 				</div>
 				<input id="edit-profile-input" type="file" (change)="detectFiles($event)" class="edit-profile-input">
 			</div>
-			<mat-icon class="profile-icon">account_circle</mat-icon>
-			<!--<img src="https://i.pinimg.com/736x/e5/71/b0/e571b0969455c8992da31558a2d3633f&#45;&#45;page-design-ui-design.jpg">-->
+			<mat-icon *ngIf="!hasImage()" class="profile-icon">account_circle</mat-icon>
+			<img *ngIf="hasImage()" [src]="user.image">
 		</div>
 	</mat-card-header>
 
 	<mat-tab-group>
-		<mat-tab label="Me" [formGroup]="profile">
+		<mat-tab label="Me">
 			<app-edit-profile></app-edit-profile>
 		</mat-tab>
 		<mat-tab label="Security"> Content 2 </mat-tab>

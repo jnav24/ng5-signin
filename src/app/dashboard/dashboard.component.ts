@@ -82,11 +82,11 @@ export class DashboardComponent implements OnInit {
 
     constructor(private loginService: LoginService,
                 private registerService: RegisterService,
-                private userService: UsersService,
+                private usersService: UsersService,
                 private route: ActivatedRoute) {}
 
     ngOnInit() {
-        this.user = this.userService.getUser();
+        this.user = this.usersService.getUser();
         this.animateFromLogin();
     }
 
