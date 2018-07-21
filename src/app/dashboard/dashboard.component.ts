@@ -1,9 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoginService} from '@app/onboard/login/login.service';
 import {ActivatedRoute, RouterOutlet} from '@angular/router';
 import {UserInterface} from '@app/common/interfaces/user.interface';
 import {animate, group, query, state, style, transition, trigger} from '@angular/animations';
 import {RegisterService} from '@app/onboard/register/register.service';
+import {UsersService} from '@app/common/services/users.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -71,8 +72,7 @@ import {RegisterService} from '@app/onboard/register/register.service';
         ])
     ]
 })
-export class DashboardComponent implements OnInit, OnDestroy {
-    private userSubscription;
+export class DashboardComponent implements OnInit {
     fromLoginState: String;
     showMenuState: String;
     fadeState: String;
@@ -82,16 +82,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     constructor(private loginService: LoginService,
                 private registerService: RegisterService,
+                private userService: UsersService,
                 private route: ActivatedRoute) {}
 
     ngOnInit() {
-        this.userSubscription = this.route.data.subscribe(user => this.user = user.user);
-        console.log(this.user);
+        this.user = this.userService.getUser();
         this.animateFromLogin();
-    }
-
-    ngOnDestroy() {
-        this.userSubscription.unsubscribe();
     }
 
     private animateFromLogin() {

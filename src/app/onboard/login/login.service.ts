@@ -29,7 +29,7 @@ export class LoginService {
     }
 
     logOutAndRedirect(): void {
-        this.userService.setUserUid('');
+        this.userService.resetUser();
         this.logoutUser()
             .then(auth => {
                 this.router.navigate(['login']);

@@ -10,6 +10,7 @@ import {LogService} from '@app/common/services/log.service';
 @Injectable()
 export class UsersService {
     private uid: String;
+    private user: UserInterface;
 
     constructor(private fdb: FirebaseDbService,
                 private log: LogService,
@@ -45,7 +46,20 @@ export class UsersService {
         return this.afs.collection('users').doc(uid).valueChanges();
     }
 
+    setUser(user: UserInterface) {
+        this.user = user;
+    }
+
+    getUser(): UserInterface {
+        return this.user;
+    }
+
     getAuth() {
         return this.auth.auth;
+    }
+
+    resetUser() {
+        this.uid = '';
+        this.user = null;
     }
 }

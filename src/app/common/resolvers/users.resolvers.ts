@@ -18,7 +18,8 @@ export class UsersResolver implements Resolve<UserInterface> {
            const authenticatedUser = await new Promise(resolve => {
                this.user = this.usersService
                    .getUserByUid(uid)
-                   .subscribe(user => {
+                   .subscribe((user: UserInterface) => {
+                       this.usersService.setUser(user);
                        resolve(user);
                    });
            });
