@@ -1,11 +1,11 @@
 <div class="mat-tab-pt" [formGroup]="profile">
 	<div class="fw-half__float">
 		<mat-form-field class="col">
-			<input matInput placeholder="First Name" formControlName="fname">
+			<input matInput placeholder="First Name" formControlName="first_name">
 		</mat-form-field>
 
 		<mat-form-field class="col">
-			<input matInput placeholder="Last Name" formControlName="lname">
+			<input matInput placeholder="Last Name" formControlName="last_name">
 		</mat-form-field>
 	</div>
 
@@ -14,6 +14,10 @@
 	</mat-form-field>
 
 	<div class="form-actions">
-		<button mat-raised-button class="btn btn-accent">Save</button>
+		<button mat-raised-button
+				[disabled]="disallowSave()"
+				class="btn btn-accent">
+			Save
+		</button>
 	</div>
 </div>
