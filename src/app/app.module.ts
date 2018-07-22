@@ -5,7 +5,7 @@ import {RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
     MatButtonModule, MatCardModule, MatCheckboxModule, MatIconModule, MatInputModule, MatMenuModule, MatRippleModule,
-    MatToolbarModule, MatProgressSpinnerModule, MatTabsModule
+    MatToolbarModule, MatProgressSpinnerModule, MatTabsModule, MatDialogModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AngularFireModule} from 'angularfire2';
@@ -68,6 +68,7 @@ import { FlashMessageComponent } from './dialogs/flash-message/flash-message.com
         MatButtonModule,
         MatCardModule,
         MatCheckboxModule,
+        MatDialogModule,
         MatIconModule,
         MatInputModule,
         MatMenuModule,
@@ -92,6 +93,9 @@ import { FlashMessageComponent } from './dialogs/flash-message/flash-message.com
         LogService,
         ResetPasswordService,
         ControlsService,
+    ],
+    entryComponents: [
+       FlashMessageComponent,
     ],
     bootstrap: [AppComponent]
 })

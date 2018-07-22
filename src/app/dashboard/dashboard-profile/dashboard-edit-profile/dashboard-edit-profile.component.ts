@@ -4,6 +4,8 @@ import {UserInterface} from '@app/common/interfaces/user.interface';
 import {UsersService} from '@app/common/services/users.service';
 import {LogService} from '@app/common/services/log.service';
 import {LogInterface} from '@app/common/interfaces/log.interface';
+import {MatDialog} from '@angular/material';
+import {FlashMessageComponent} from '@app/dialogs/flash-message/flash-message.component';
 
 @Component({
     selector: 'app-edit-profile',
@@ -14,7 +16,8 @@ export class DashboardEditProfileComponent implements OnInit {
     profile: FormGroup;
     user: UserInterface;
 
-    constructor(private usersService: UsersService,
+    constructor(public dialog: MatDialog,
+                private usersService: UsersService,
                 private logService: LogService,
                 private fb: FormBuilder) { }
 
@@ -40,26 +43,42 @@ export class DashboardEditProfileComponent implements OnInit {
         return matches.length === Object.keys(this.profile.value).length || !this.profile.valid;
     }
 
-    async updateProfile() {
+    updateProfile() {
         // add update info; to firebase auth and db
         // add password reset functionality to firebase auth
         // save image functionality; update user singleton, save to storage and db
-        try {
-            // if (this.user.email !== this.profile.value.email) {
-            //     await this.usersService.updateUserEmail(this.profile.value.email);
-            // }
-            await this.usersService.updateUser(this.usersService.getUserUid().toString(), this.profile.value);
-            this.usersService.updateUserSession(this.profile.value);
-            this.user = this.usersService.getUser();
-        } catch (error) {
-            const log: LogInterface = {
-                page: 'edit-profile',
-                message: error.message,
-                level: 'error'
-            };
+        this.dialog.open(FlashMessageComponent, {
+            data: {
+                promise: new Promise((resolve, reject) => {
+                    this.usersService
+                        .updateUser(this.usersService.getUserUid().toString(), this.profile.value)
+                        .then(res => {
+                            this.usersService.updateUserSession(this.profile.value);
+                            this.user = this.usersService.getUser();
+                            resolve();
+                        })
+                        .catch(error => {
+                            const log: LogInterface = {
+                                page: 'edit-profile',
+                                message: error.message,
+                                level: 'error'
+                            };
 
-            this.logService.writeLog(log);
-            // return a fail message
-        }
+                            this.logService.writeLog(log);
+                            reject();
+                        });
+                }),
+                status: {
+                    success: {
+                        title: 'Success',
+                        message: 'Profile has been successfully updated.'
+                    },
+                    error: {
+                        title: 'Error',
+                        message: 'Unable to update your profile.'
+                    }
+                }
+            }
+        });
     }
 }
