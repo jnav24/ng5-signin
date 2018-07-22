@@ -62,4 +62,26 @@ export class UsersService {
         this.uid = '';
         this.user = null;
     }
+
+    updateUser(uid: string, data: UserInterface): Promise<any> {
+        if (this.fdb.isFirebase()) {
+            return this.af.object(`users/${uid}`).update(data);
+        }
+
+        return this.afs.collection(`users`).doc(uid).update(data);
+    }
+
+    updateUserSession(data: UserInterface): void {
+        const keys = Object.keys(data);
+        keys.map(key => {
+            this.user[key] = data[key];
+        });
+    }
+
+    updateUserEmail(email) {
+        console.log(this.auth.auth.currentUser.updateEmail(email));
+        // return this.auth.auth.currentUser.updateEmail(email);
+    }
+
+    updateUserPassword() {}
 }

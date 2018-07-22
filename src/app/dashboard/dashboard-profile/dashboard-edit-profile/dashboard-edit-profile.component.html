@@ -10,11 +10,12 @@
 	</div>
 
 	<mat-form-field class="fw-full">
-		<input matInput placeholder="Email" formControlName="email">
+		<input matInput disabled placeholder="Email (Can only be changed in Security tab)" value="{{ user.email }}">
 	</mat-form-field>
 
 	<div class="form-actions">
 		<button mat-raised-button
+				(click)="updateProfile()"
 				[disabled]="disallowSave()"
 				class="btn btn-accent">
 			Save
