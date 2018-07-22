@@ -14,7 +14,7 @@ export class FlashMessageComponent implements OnInit {
             success: {
                 state: 'success',
                 title: 'Success',
-                message: 'Action resulted sucessfully',
+                message: 'Action resulted successfully',
             },
             error: {
                 state: 'danger',
