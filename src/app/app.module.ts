@@ -44,6 +44,7 @@ import {ResetPasswordService} from '@app/onboard/reset-password/reset-password.s
 import {ControlsService} from '@app/common/services/controls.service';
 import { DashboardEditProfileComponent } from './dashboard/dashboard-profile/dashboard-edit-profile/dashboard-edit-profile.component';
 import { FlashMessageComponent } from './dialogs/flash-message/flash-message.component';
+import { DashboardSecurityComponent } from './dashboard/dashboard-profile/dashboard-security/dashboard-security.component';
 
 
 
@@ -59,6 +60,7 @@ import { FlashMessageComponent } from './dialogs/flash-message/flash-message.com
         DashboardHomeComponent,
         DashboardEditProfileComponent,
         FlashMessageComponent,
+        DashboardSecurityComponent,
     ],
     imports: [
         AngularFireModule.initializeApp(environmentConfig.firebase),
