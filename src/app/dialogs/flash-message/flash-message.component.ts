@@ -47,6 +47,7 @@ export class FlashMessageComponent implements OnInit {
                 }
             })
             .catch(error => {
+                console.log(error.message);
                 this.loading = false;
                 this.flash = this.data.status.error;
 
