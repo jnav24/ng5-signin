@@ -63,11 +63,11 @@ export class DashboardSecurityComponent implements OnInit {
                                .catch(error => {
                                    const log: LogInterface = {
                                        page: 'edit-profile.security',
-                                       level: 'error',
+                                       level: 'debug',
                                        message: error.message
                                    };
                                    this.log.writeLog(log);
-                                   throw new Error('Unable to update email');
+                                   reject();
                                });
                        })
                        .catch(error => {
@@ -79,7 +79,7 @@ export class DashboardSecurityComponent implements OnInit {
                         message: 'Your email and password were updated successfully'
                     },
                     error: {
-                        message: 'Unable to update your email and password'
+                        message: 'Unable to update your email and password. Email might have already been taken.'
                     }
                 }
             }
