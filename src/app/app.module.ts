@@ -45,6 +45,8 @@ import {ControlsService} from '@app/common/services/controls.service';
 import { DashboardEditProfileComponent } from './dashboard/dashboard-profile/dashboard-edit-profile/dashboard-edit-profile.component';
 import { FlashMessageComponent } from './dialogs/flash-message/flash-message.component';
 import { DashboardSecurityComponent } from './dashboard/dashboard-profile/dashboard-security/dashboard-security.component';
+import {UploadService} from '@app/common/services/upload.service';
+import {AngularFireStorage} from 'angularfire2/storage';
 
 
 
@@ -85,6 +87,7 @@ import { DashboardSecurityComponent } from './dashboard/dashboard-profile/dashbo
         AngularFireDatabase,
         AngularFireAuth,
         AngularFirestore,
+        AngularFireStorage,
         FirebaseDbService,
         LoginService,
         RegisterService,
@@ -95,6 +98,7 @@ import { DashboardSecurityComponent } from './dashboard/dashboard-profile/dashbo
         LogService,
         ResetPasswordService,
         ControlsService,
+        UploadService,
     ],
     entryComponents: [
        FlashMessageComponent,

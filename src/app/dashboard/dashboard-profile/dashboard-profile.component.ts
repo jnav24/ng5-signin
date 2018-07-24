@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {UsersService} from '@app/common/services/users.service';
 import {UserInterface} from '@app/common/interfaces/user.interface';
+import {MatDialog} from '@angular/material';
+import {FlashMessageComponent} from '@app/dialogs/flash-message/flash-message.component';
+import {UploadService} from '@app/common/services/upload.service';
 
 @Component({
     selector: 'app-dashboard-profile',
@@ -10,16 +13,34 @@ import {UserInterface} from '@app/common/interfaces/user.interface';
 export class DashboardProfileComponent implements OnInit {
     user: UserInterface;
 
-    constructor(private usersService: UsersService) { }
+    constructor(public dialog: MatDialog,
+                private uploadService: UploadService,
+                private usersService: UsersService) { }
 
     ngOnInit() {
         this.user = this.usersService.getUser();
     }
 
     detectFiles(event) {
-        console.log(event.target.files);
-        // this.imageFile = event.target.files[0];
-        // this.loadPreview(this.imageFile);
+        const imageFile = event.target.files[0];
+        console.log(imageFile);
+        console.log(imageFile.name);
+
+        if (this.validateImageType(imageFile) && this.validateImageSize(imageFile)) {
+            this.dialog.open(FlashMessageComponent, {
+                data: {
+                    promise: new Promise((resolve, reject) => {
+                        // upload image
+                        // update user session
+                        const filename = this.uploadService.getProfilePath(this.usersService.getUserUid().toString(), imageFile.name);
+                    }),
+                    status: {
+                        success: {},
+                        error: {}
+                    }
+                }
+            });
+        }
     }
 
     openFileBrowser() {
@@ -29,5 +50,31 @@ export class DashboardProfileComponent implements OnInit {
 
     hasImage() {
         return typeof this.user.image !== 'undefined' && this.user.image.trim().length;
+    }
+
+    private validateImageType(file: File): boolean {
+        const acceptedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (acceptedTypes.indexOf(file.type) < 0) {
+            this.dialog.open(FlashMessageComponent, {
+                data: {
+                    promise: new Promise((resolve, reject) => {
+                        reject();
+                    }),
+                    status: {
+                        error: {
+                            message: 'That image file type is not supported. Upload a jpg, gif, or png instead.'
+                        }
+                    }
+                }
+            });
+
+            return false;
+        }
+
+        return true;
+    }
+
+    private validateImageSize(file: File): boolean {
+        return true;
     }
 }
