@@ -62,7 +62,7 @@ export class DashboardSecurityComponent implements OnInit {
                                .then(res => resolve(res))
                                .catch(error => {
                                    const log: LogInterface = {
-                                       page: 'edit profile security',
+                                       page: 'edit-profile.security',
                                        level: 'error',
                                        message: error.message
                                    };

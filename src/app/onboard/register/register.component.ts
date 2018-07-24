@@ -82,6 +82,7 @@ export class RegisterComponent implements OnInit {
                     this.log.writeLog(log);
                 });
         } catch (err) {
+            this.loading = false;
             if (err.code === 'auth/email-already-in-use') {
                 this.error = 'You already have an account. Did you forget your password?';
             } else {
