@@ -77,11 +77,4 @@ export class UsersService {
             this.user[key] = data[key];
         });
     }
-
-    updateUserEmail(email) {
-        console.log(this.auth.auth.currentUser.updateEmail(email));
-        // return this.auth.auth.currentUser.updateEmail(email);
-    }
-
-    updateUserPassword() {}
 }

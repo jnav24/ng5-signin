@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material';
 import {FlashMessageComponent} from '@app/dialogs/flash-message/flash-message.component';
+import {LoginService} from '@app/onboard/login/login.service';
+import {UsersService} from '@app/common/services/users.service';
+import {LogService} from '@app/common/services/log.service';
+import {LogInterface} from '@app/common/interfaces/log.interface';
 
 @Component({
     selector: 'app-profile-security',
@@ -12,6 +16,9 @@ export class DashboardSecurityComponent implements OnInit {
     securityForm: FormGroup;
 
     constructor(public dialog: MatDialog,
+                private log: LogService,
+                private loginService: LoginService,
+                private usersService: UsersService,
                 private fb: FormBuilder) { }
 
     ngOnInit() {
@@ -24,15 +31,48 @@ export class DashboardSecurityComponent implements OnInit {
         });
     }
 
-    updateAuth() {
+    updateAuth(): boolean | void {
+        if (this.securityForm.value.email === this.securityForm.value.newEmail &&
+            this.securityForm.value.password === this.securityForm.value.newPassword) {
+            this.dialog.open(FlashMessageComponent, {
+                data: {
+                    promise: new Promise((resolve, reject) => {
+                        reject();
+                    }),
+                    status: {
+                        error: {
+                            message: 'Your current and new email and password should not match'
+                        }
+                    }
+                }
+            });
+
+            return false;
+        }
+
         this.dialog.open(FlashMessageComponent, {
             data: {
                 promise: new Promise((resolve, reject) => {
-                    if (this.securityForm.value.email === this.securityForm.value.newEmail &&
-                        this.securityForm.value.password === this.securityForm.value.newPassword) {
-                        // ...
-                    }
-                    reject('rejecting bitch');
+                   this.loginService
+                       .loginUser(this.securityForm.value.email, this.securityForm.value.password)
+                       .then(auth => {
+                           const emailUpdate = auth.updateEmail(this.securityForm.value.newEmail);
+                           const passwordUpdate = auth.updatePassword(this.securityForm.value.newPassword);
+                           Promise.all([emailUpdate, passwordUpdate])
+                               .then(res => resolve(res))
+                               .catch(error => {
+                                   const log: LogInterface = {
+                                       page: 'edit profile security',
+                                       level: 'error',
+                                       message: error.message
+                                   };
+                                   this.log.writeLog(log);
+                                   throw new Error('Unable to update email');
+                               });
+                       })
+                       .catch(error => {
+                           reject();
+                       });
                 }),
                 status: {
                     success: {
@@ -52,39 +92,6 @@ export class DashboardSecurityComponent implements OnInit {
 }
 
 export class CustomValidator {
-    static checkOptional() {
-        return (control: AbstractControl) => {
-            console.log(!control.root.value.newEmail);
-            console.log(!control.root.value.newPassword);
-            console.log('=================================');
-            if (!control.root.value.newEmail && !control.root.value.newPassword) {
-                return { validateConfirm: false };
-            }
-
-            return null;
-        };
-    }
-
-    static checkEmail() {
-        return (control: AbstractControl) => {
-            if (control.value && /\S+@\S+\.\S+/.test(control.value)) {
-                return { validateConfirm: false };
-            }
-
-            return null;
-        };
-    }
-
-    static checkPassword() {
-        return (control: AbstractControl) => {
-            if (control.value && control.value.length >= 8 && control.value.length <= 24) {
-                return { validateConfirm: false };
-            }
-
-            return null;
-        };
-    }
-
     static passwordMatch() {
         return (control: AbstractControl) => {
             if (control.value && control.value !== control.root.get('newPassword').value) {
