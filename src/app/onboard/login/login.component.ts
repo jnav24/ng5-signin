@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
                 });
             })
             .catch(error => {
+                this.error = 'Email and/or password is invalid';
                 this.loading = false;
                 const log = {
                     level: 'error',
