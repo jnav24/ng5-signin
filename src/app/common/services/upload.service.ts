@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFireStorage, AngularFireUploadTask} from 'angularfire2/storage';
 import {environmentConfig} from '@app/config/environment.config';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class UploadService {
@@ -17,6 +18,15 @@ export class UploadService {
 
     uploadFile(filename: string, file: File): AngularFireUploadTask {
         return this.afStore.upload(filename, file);
+    }
+
+    deleteFile(path: string): Observable<any> {
+        return this.afStore.ref(path).delete();
+    }
+
+    getImageName(file: string): string {
+        const fileList = file.split('/');
+        return fileList[fileList.length - 1];
     }
 
     private sanitizeFileName(name: string) {

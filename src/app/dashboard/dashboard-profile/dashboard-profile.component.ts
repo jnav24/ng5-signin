@@ -33,6 +33,24 @@ export class DashboardProfileComponent implements OnInit {
                         // upload image
                         // update user session
                         const filename = this.uploadService.getProfilePath(this.usersService.getUserUid().toString(), imageFile.name);
+
+                        if (typeof this.user.image !== 'undefined' || this.user.image) {
+                            const image = this.uploadService.getProfilePath(this.usersService.getUserUid().toString(), this.user.image);
+                            this.uploadService.deleteFile(image);
+                        }
+
+                        this.uploadService
+                            .uploadFile(filename, imageFile)
+                            .then(res => {
+                                if (res.state === 'success') {
+                                    this.user.image = this.uploadService.getImageName(filename);
+                                    this.usersService.setUser(this.user);
+                                    resolve();
+                                }
+                            })
+                            .catch(error => {
+                                reject();
+                            });
                     }),
                     status: {
                         success: {},
@@ -43,7 +61,7 @@ export class DashboardProfileComponent implements OnInit {
         }
     }
 
-    openFileBrowser() {
+    openFileBrowser(): void {
         const element: HTMLElement = document.getElementById('edit-profile-input') as HTMLElement;
         element.click();
     }

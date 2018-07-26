@@ -1,17 +1,4 @@
 <mat-card>
-	<mat-card-header>
-		<div mat-card-avatar>
-			<div class="profile-hover" (click)="openFileBrowser()">
-				<div class="profile-hover__row">
-					<mat-icon>photo</mat-icon>
-				</div>
-				<input id="edit-profile-input" type="file" (change)="detectFiles($event)" class="edit-profile-input">
-			</div>
-			<mat-icon *ngIf="!hasImage()" class="profile-icon">account_circle</mat-icon>
-			<img *ngIf="hasImage()" [src]="user.image">
-		</div>
-	</mat-card-header>
-
 	<mat-tab-group>
 		<mat-tab label="Me">
 			<app-edit-profile></app-edit-profile>
