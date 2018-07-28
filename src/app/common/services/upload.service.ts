@@ -29,6 +29,11 @@ export class UploadService {
         return fileList[fileList.length - 1];
     }
 
+    getProfileImageUrl(uid: string, file: string): Observable<any> {
+        const filePath = this.getProfilePath(uid, file);
+        return this.afStore.ref(filePath).getDownloadURL();
+    }
+
     private sanitizeFileName(name: string) {
         const nameList = name.split('.');
         const extension = nameList[nameList.length - 1];

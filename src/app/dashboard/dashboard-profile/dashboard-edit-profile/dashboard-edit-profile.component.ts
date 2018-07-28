@@ -6,6 +6,8 @@ import {LogService} from '@app/common/services/log.service';
 import {LogInterface} from '@app/common/interfaces/log.interface';
 import {MatDialog} from '@angular/material';
 import {FlashMessageComponent} from '@app/dialogs/flash-message/flash-message.component';
+import {UploadService} from '@app/common/services/upload.service';
+import {AngularFireUploadTask} from 'angularfire2/storage';
 
 @Component({
     selector: 'app-edit-profile',
@@ -22,6 +24,7 @@ export class DashboardEditProfileComponent implements OnInit {
 
     constructor(public dialog: MatDialog,
                 private usersService: UsersService,
+                private uploadService: UploadService,
                 private logService: LogService,
                 private fb: FormBuilder) { }
 
@@ -37,7 +40,7 @@ export class DashboardEditProfileComponent implements OnInit {
         this.profile.setValue({
             first_name: this.user.first_name,
             last_name: this.user.last_name,
-            image: null
+            image: ''
         });
 
         this.image = this.user.image || '';
@@ -45,7 +48,6 @@ export class DashboardEditProfileComponent implements OnInit {
 
     detectFiles(event) {
         this.imageFile = event.target.files[0];
-        console.log(this.imageFile.size);
 
         if (this.getImageSize(this.imageFile.size) > this.allowedImageSize) {
             this.error = `Image size must be smaller than ${this.allowedImageSize} mb`;
@@ -83,22 +85,45 @@ export class DashboardEditProfileComponent implements OnInit {
     }
 
     updateProfile() {
-        // add update info; to firebase auth and db
-        // add password reset functionality to firebase auth
-        // save image functionality; update user singleton, save to storage and db
         this.dialog.open(FlashMessageComponent, {
             data: {
-                promise: new Promise((resolve, reject) => {
+                promise: new Promise(async (resolve, reject) => {
+                    const updatedImage = {};
+
+                    if (typeof this.imageFile.name !== 'undefined') {
+                        const filename = this.uploadService.getProfilePath(this.usersService.getUserUid().toString(), this.imageFile.name);
+
+                        try {
+                            const res = await this.uploadImage(filename);
+
+                            if (res.state === 'success') {
+                                updatedImage['image_url'] = res.downloadURL;
+                                updatedImage['image'] = this.uploadService.getImageName(filename);
+                            }
+                        } catch (error) {
+                            const log: LogInterface = {
+                                page: 'edit-profile.uploadImage',
+                                message: error.message,
+                                level: 'error'
+                            };
+
+                            this.logService.writeLog(log);
+                            reject();
+                        }
+                    }
+
+                    const data = Object.assign({}, this.setDataForSave(this.profile.value), updatedImage);
+
                     this.usersService
-                        .updateUser(this.usersService.getUserUid().toString(), this.profile.value)
+                        .updateUser(this.usersService.getUserUid().toString(), data)
                         .then(res => {
-                            this.usersService.updateUserSession(this.profile.value);
+                            this.usersService.updateUserSession(data);
                             this.user = this.usersService.getUser();
                             resolve();
                         })
                         .catch(error => {
                             const log: LogInterface = {
-                                page: 'edit-profile',
+                                page: 'edit-profile.updateUser',
                                 message: error.message,
                                 level: 'error'
                             };
@@ -120,15 +145,27 @@ export class DashboardEditProfileComponent implements OnInit {
             }
         });
     }
+
+    private uploadImage(filename: string): AngularFireUploadTask {
+        if (typeof this.user.image !== 'undefined' || this.user.image) {
+            const image = this.uploadService.getProfilePath(this.usersService.getUserUid().toString(), this.user.image);
+            this.uploadService.deleteFile(image);
+        }
+
+        return this.uploadService.uploadFile(filename, this.imageFile);
+    }
+
+    private setDataForSave(data) {
+        return {
+            first_name: data.first_name,
+            last_name: data.last_name
+        };
+    }
 }
 
 export class CustomValidator {
     static checkImage() {
         return (control: AbstractControl) => {
-            if (!control.value) {
-                return { validateConfirm: false };
-            }
-
             const acceptedTypes = [
                 'png',
                 'jpg',
@@ -137,7 +174,7 @@ export class CustomValidator {
             const fileList = control.value.split('.');
             const extension = fileList[fileList.length - 1];
 
-            if (acceptedTypes.indexOf(extension) < 0) {
+            if (control.value && acceptedTypes.indexOf(extension) < 0) {
                 return { validateConfirm: false };
             }
 
