@@ -40,7 +40,7 @@ export class DashboardEditProfileComponent implements OnInit {
         this.profile.setValue({
             first_name: this.user.first_name,
             last_name: this.user.last_name,
-            image: ''
+            image: this.user.image || ''
         });
 
         this.image = this.user.image_url || '';
@@ -65,6 +65,7 @@ export class DashboardEditProfileComponent implements OnInit {
         reader.readAsDataURL(file);
         reader.addEventListener('load', () => {
             this.image = reader.result;
+            this.profile.value.image = file.name;
         }, false);
     }
 
@@ -78,7 +79,7 @@ export class DashboardEditProfileComponent implements OnInit {
 
     disallowSave() {
         const matches = Object.keys(this.profile.value).filter(key => {
-            return this.user[key] === this.profile.value[key];
+            return this.user[key].trim() === this.profile.value[key].trim();
         });
 
         return matches.length === Object.keys(this.profile.value).length || !this.profile.valid;
