@@ -12,6 +12,7 @@ import {AngularFireModule} from 'angularfire2';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {AngularFirestore} from 'angularfire2/firestore';
+import {NgxsModule} from 'ngxs';
 
 // Config
 import { RouterConfig } from '@app/config/router.config';
@@ -33,6 +34,9 @@ import {OnboardGuard} from '@app/onboard/onboard.guard';
 
 // Resolvers
 import {UsersResolver} from '@app/common/resolvers/users.resolvers';
+
+// States
+import {UserState} from '@app/common/states/user.state';
 
 // Services
 import {LoginService} from '@app/onboard/login/login.service';
@@ -81,6 +85,9 @@ import {AngularFireStorage} from 'angularfire2/storage';
         MatProgressSpinnerModule,
         MatTabsModule,
         MatToolbarModule,
+        NgxsModule.forRoot([
+            UserState
+        ]),
         ReactiveFormsModule,
         RouterModule.forRoot(RouterConfig),
     ],

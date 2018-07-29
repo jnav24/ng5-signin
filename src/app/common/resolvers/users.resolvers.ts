@@ -4,12 +4,15 @@ import {UsersService} from '@app/common/services/users.service';
 import {UserInterface} from '@app/common/interfaces/user.interface';
 import {LogService} from '@app/common/services/log.service';
 import {LoginService} from '@app/onboard/login/login.service';
+import {Store} from 'ngxs';
+import {AddUser} from '@app/common/actions/user.action';
 
 @Injectable()
 export class UsersResolver implements Resolve<UserInterface> {
     private user;
     constructor(private usersService: UsersService,
                 private loginService: LoginService,
+                private store: Store,
                 private log: LogService) {}
 
     async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<any> {
@@ -19,7 +22,7 @@ export class UsersResolver implements Resolve<UserInterface> {
                this.user = this.usersService
                    .getUserByUid(uid)
                    .subscribe((user: UserInterface) => {
-                       this.usersService.setUser(user);
+                       this.store.dispatch(new AddUser(user));
                        resolve(user);
                    });
            });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserInterface} from '@app/common/interfaces/user.interface';
 import {UsersService} from '@app/common/services/users.service';
@@ -8,42 +8,54 @@ import {MatDialog} from '@angular/material';
 import {FlashMessageComponent} from '@app/dialogs/flash-message/flash-message.component';
 import {UploadService} from '@app/common/services/upload.service';
 import {AngularFireUploadTask} from 'angularfire2/storage';
+import {Store} from 'ngxs';
+import {UpdateUser} from '@app/common/actions/user.action';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-edit-profile',
     templateUrl: './dashboard-edit-profile.component.html',
     styleUrls: ['./dashboard-edit-profile.component.scss']
 })
-export class DashboardEditProfileComponent implements OnInit {
+export class DashboardEditProfileComponent implements OnInit, OnDestroy {
     profile: FormGroup;
-    user: UserInterface;
     imageFile: File;
     image: string;
     error: string;
+    user: UserInterface;
+    private userSubscription: Subscription;
     private allowedImageSize: Number = 1.5;
 
     constructor(public dialog: MatDialog,
                 private usersService: UsersService,
                 private uploadService: UploadService,
                 private logService: LogService,
+                private store: Store,
                 private fb: FormBuilder) { }
 
     ngOnInit() {
-        this.user = this.usersService.getUser();
-
         this.profile = this.fb.group({
             first_name: ['', [Validators.required, Validators.minLength(3)]],
             last_name: ['', [Validators.required, Validators.minLength(3)]],
             image: ['', [CustomValidator.checkImage()]]
         });
 
-        this.profile.setValue({
-            first_name: this.user.first_name,
-            last_name: this.user.last_name,
-            image: this.user.image || ''
-        });
+        this.userSubscription = this.store
+            .select(state => state.user)
+            .subscribe(user => {
+                this.user = user;
+                this.profile.setValue({
+                    first_name: this.user.first_name,
+                    last_name: this.user.last_name,
+                    image: this.user.image || ''
+                });
 
-        this.image = this.user.image_url || '';
+                this.image = this.user.image_url || '';
+            });
+    }
+
+    ngOnDestroy() {
+        this.userSubscription.unsubscribe();
     }
 
     detectFiles(event) {
@@ -118,8 +130,7 @@ export class DashboardEditProfileComponent implements OnInit {
                     this.usersService
                         .updateUser(this.usersService.getUserUid().toString(), data)
                         .then(res => {
-                            this.usersService.updateUserSession(data);
-                            this.user = this.usersService.getUser();
+                            this.store.dispatch(new UpdateUser(data));
                             resolve();
                         })
                         .catch(error => {

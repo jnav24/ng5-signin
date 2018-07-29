@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {LoginService} from '@app/onboard/login/login.service';
 import {ActivatedRoute, RouterOutlet} from '@angular/router';
 import {UserInterface} from '@app/common/interfaces/user.interface';
 import {animate, group, query, state, style, transition, trigger} from '@angular/animations';
 import {RegisterService} from '@app/onboard/register/register.service';
 import {UsersService} from '@app/common/services/users.service';
+import {Store} from 'ngxs';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-dashboard',
@@ -72,22 +74,30 @@ import {UsersService} from '@app/common/services/users.service';
         ])
     ]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
     fromLoginState: String;
     showMenuState: String;
     fadeState: String;
     showLoginAnimate: Boolean = false;
     showMenuAnimate: Boolean = false;
     user: UserInterface;
+    private userSubscription: Subscription;
 
     constructor(private loginService: LoginService,
                 private registerService: RegisterService,
                 private usersService: UsersService,
+                private store: Store,
                 private route: ActivatedRoute) {}
 
     ngOnInit() {
-        this.user = this.usersService.getUser();
+        this.userSubscription = this.store
+            .select(state => state.user)
+            .subscribe(user => this.user = user);
         this.animateFromLogin();
+    }
+
+    ngOnDestroy() {
+        this.userSubscription.unsubscribe();
     }
 
     private animateFromLogin() {
