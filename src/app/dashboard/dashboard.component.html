@@ -20,6 +20,7 @@
 		</div>
 		<mat-menu #profileMenu="matMenu" yPosition="above" overlapTrigger="false">
 			<a [routerLink]="['/dashboard/edit/profile']" mat-menu-item>Edit Profile</a>
+			<a [routerLink]="['/dashboard/logs']" mat-menu-item>Logs</a>
 			<button mat-menu-item (click)="logout()">Log Out</button>
 		</mat-menu>
 	</div>

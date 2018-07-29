@@ -51,6 +51,7 @@ import { FlashMessageComponent } from './dialogs/flash-message/flash-message.com
 import { DashboardSecurityComponent } from './dashboard/dashboard-profile/dashboard-security/dashboard-security.component';
 import {UploadService} from '@app/common/services/upload.service';
 import {AngularFireStorage} from 'angularfire2/storage';
+import { DashboardLogsComponent } from './dashboard/dashboard-logs/dashboard-logs.component';
 
 
 
@@ -67,6 +68,7 @@ import {AngularFireStorage} from 'angularfire2/storage';
         DashboardEditProfileComponent,
         FlashMessageComponent,
         DashboardSecurityComponent,
+        DashboardLogsComponent,
     ],
     imports: [
         AngularFireModule.initializeApp(environmentConfig.firebase),
