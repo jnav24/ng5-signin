@@ -43,7 +43,7 @@ export class DashboardEditProfileComponent implements OnInit {
             image: ''
         });
 
-        this.image = this.user.image || '';
+        this.image = this.user.image_url || '';
     }
 
     detectFiles(event) {

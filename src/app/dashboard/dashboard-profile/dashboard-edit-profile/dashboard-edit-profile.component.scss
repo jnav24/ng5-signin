@@ -21,9 +21,6 @@
 			@include circle(200px, #fff);
 
 			img {
-				height: auto;
-				min-height: 100%;
-				width: 100%;
 				@include posa(0,n,n,0);
 			}
 		}

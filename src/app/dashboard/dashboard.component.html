@@ -16,7 +16,7 @@
 	<div class="nav__profile">
 		<mat-icon *ngIf="!hasImage()" [matMenuTriggerFor]="profileMenu">account_circle</mat-icon>
 		<div class="profile-img" *ngIf="hasImage()" [matMenuTriggerFor]="profileMenu">
-			<img [src]="user.image" alt="">
+			<img [src]="user.image_url" alt="" class="fit-img">
 		</div>
 		<mat-menu #profileMenu="matMenu" yPosition="above" overlapTrigger="false">
 			<a [routerLink]="['/dashboard/edit/profile']" mat-menu-item>Edit Profile</a>

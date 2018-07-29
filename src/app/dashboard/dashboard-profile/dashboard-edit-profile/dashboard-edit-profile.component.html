@@ -5,7 +5,7 @@
 			<div class="photo__box">
 				<div class="photo__box--circle">
 					<i class="material-icons photo__default" *ngIf="!hasContactImage()">account_circle</i>
-					<img [src]="image" alt="" *ngIf="hasContactImage()">
+					<img [src]="image" alt="" *ngIf="hasContactImage()" class="fit-img">
 				</div>
 				<input id="imageFile" type="file" (change)="detectFiles($event)" formControlName="image">
 			</div>

@@ -43,11 +43,6 @@ $size: 30px;
 	display: inline-block;
 	overflow: hidden;
 	@include circle(($size - 3px), white);
-
-	img {
-		height: 100%;
-		min-width: 100%;
-	}
 }
 
 .content-container {

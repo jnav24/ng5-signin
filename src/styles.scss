@@ -45,3 +45,9 @@ a, button, a.link, button.link {
 .mat-input-underline .mat-input-ripple {
 	background: $primary;
 }
+
+.fit-img {
+	height: 100%;
+	object-fit: cover;
+	width: 100%;
+}
