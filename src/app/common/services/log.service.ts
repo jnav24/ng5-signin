@@ -4,6 +4,7 @@ import {AngularFireDatabase} from 'angularfire2/database';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {LogInterface} from '@app/common/interfaces/log.interface';
 import * as moment from 'moment';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class LogService {
@@ -13,7 +14,7 @@ export class LogService {
 
     writeLog(data: LogInterface): Promise<any> {
         let log;
-        data.created = moment().toString();
+        data.created = moment().unix().toString();
 
         if (this.fdb.isFirebase()) {
             log = this.af.object('logs');
@@ -22,5 +23,13 @@ export class LogService {
 
         log = this.afs.collection('logs');
         return log.add(data);
+    }
+
+    getLogs(): Observable<{}> {
+        if (this.fdb.isFirebase()) {
+            return this.af.list(`logs`, ref => ref.orderByChild('created')).valueChanges();
+        }
+
+        return this.afs.collection('logs', ref => ref.orderBy('created', 'asc')).valueChanges();
     }
 }
