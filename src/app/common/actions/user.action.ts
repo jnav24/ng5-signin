@@ -6,6 +6,11 @@ export class AddUser {
 }
 
 export class UpdateUser {
-    static readonly type = '[User] Update';
+    static readonly type = '[User] update';
     constructor(public payload: UserInterface) {}
+}
+
+export class RemoveUser {
+    static readonly type = '[User] remove';
+    constructor() {}
 }

@@ -7,6 +7,8 @@ import {FirebaseDbService} from '@app/common/services/firebase-db.service';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {LogService} from '@app/common/services/log.service';
 import {UsersService} from '@app/common/services/users.service';
+import {Store} from 'ngxs';
+import {RemoveUser} from '@app/common/actions/user.action';
 
 @Injectable()
 export class LoginService {
@@ -20,6 +22,7 @@ export class LoginService {
         private log: LogService,
         private afs: AngularFirestore,
         private af: AngularFireDatabase,
+        private store: Store,
         private auth: AngularFireAuth) {
         this.user = auth.authState;
     }
@@ -30,6 +33,7 @@ export class LoginService {
 
     logOutAndRedirect(): void {
         this.usersService.resetUser();
+        this.store.dispatch(new RemoveUser());
         this.logoutUser()
             .then(auth => {
                 this.router.navigate(['login']);

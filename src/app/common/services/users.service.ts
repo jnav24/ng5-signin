@@ -10,7 +10,6 @@ import {LogService} from '@app/common/services/log.service';
 @Injectable()
 export class UsersService {
     private uid: String;
-    private user: UserInterface;
 
     constructor(private fdb: FirebaseDbService,
                 private log: LogService,
@@ -46,21 +45,12 @@ export class UsersService {
         return this.afs.collection('users').doc(uid).valueChanges();
     }
 
-    setUser(user: UserInterface) {
-        this.user = user;
-    }
-
-    getUser(): UserInterface {
-        return this.user;
-    }
-
     getAuth() {
         return this.auth.auth;
     }
 
     resetUser() {
         this.uid = '';
-        this.user = null;
     }
 
     updateUser(uid: string, data: UserInterface): Promise<any> {
@@ -69,12 +59,5 @@ export class UsersService {
         }
 
         return this.afs.collection(`users`).doc(uid).update(data);
-    }
-
-    updateUserSession(data: UserInterface): void {
-        const keys = Object.keys(data);
-        keys.map(key => {
-            this.user[key] = data[key];
-        });
     }
 }
