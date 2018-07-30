@@ -44,4 +44,8 @@ export class DashboardLogsComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.dataSourceSubscription.unsubscribe();
     }
+
+    applyFilter(filterValue: string) {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
 }

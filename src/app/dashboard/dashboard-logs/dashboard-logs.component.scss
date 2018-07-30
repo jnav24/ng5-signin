@@ -3,3 +3,13 @@
 .table {
 	margin-bottom: 50px;
 }
+
+.fw-fit {
+	padding: 10px 25px 0 50px;
+	@include box-sizing(border-box);
+
+	.fw-icon {
+		position: absolute;
+		left: -35px;
+	}
+}
