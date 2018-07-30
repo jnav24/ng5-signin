@@ -30,6 +30,6 @@ export class LogService {
             return this.af.list(`logs`, ref => ref.orderByChild('created')).valueChanges();
         }
 
-        return this.afs.collection('logs', ref => ref.orderBy('created', 'asc')).valueChanges();
+        return this.afs.collection('logs', ref => ref.orderBy('created', 'desc')).valueChanges();
     }
 }

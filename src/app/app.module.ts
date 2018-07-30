@@ -5,7 +5,7 @@ import {RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
     MatButtonModule, MatCardModule, MatCheckboxModule, MatIconModule, MatInputModule, MatMenuModule, MatRippleModule,
-    MatToolbarModule, MatProgressSpinnerModule, MatTabsModule, MatDialogModule, MatGridListModule
+    MatToolbarModule, MatProgressSpinnerModule, MatTabsModule, MatDialogModule, MatGridListModule, MatTableModule, MatPaginatorModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AngularFireModule} from 'angularfire2';
@@ -84,8 +84,10 @@ import { DashboardLogsComponent } from './dashboard/dashboard-logs/dashboard-log
         MatInputModule,
         MatMenuModule,
         MatRippleModule,
+        MatPaginatorModule,
         MatProgressSpinnerModule,
         MatTabsModule,
+        MatTableModule,
         MatToolbarModule,
         NgxsModule.forRoot([
             UserState
